@@ -5,6 +5,7 @@ export default {
       iconSecondary: "#DAD8D9",
       containerHeader: "#2A166D",
       text: "#6f6f6f",
+      textLink: "#fff",
       textTitle: "#000",
       textSubtitle: "#6f6f6f",
       borderSepare: "#6f6f6f",
@@ -32,13 +33,14 @@ export default {
       buttonText: "#fff",
    },
    dark: {
-      container: "#020203",
+      container: "#191923",
       iconPrimary: "#BFA3F9",
       iconSecondary: "#6f6f6f",
       containerHeader: "#2A166D",
       text: "#fff",
+      textLink: "#8673FF",
       textTitle: "#fff",
-      textSubtitle: "#DAD8D9",
+      textSubtitle: "#6f6f6f",
       borderSepare: "#6f6f6f",
       card: "#282C34",
       background: "#232323",
@@ -59,7 +61,7 @@ export default {
       inputText: "rgba(255, 255, 255, 0.87)",
 
       //button
-      buttonContainer: "#F6A626",
+      buttonContainer: "#8673FF",
       buttonText: "#fff",
    },
 };

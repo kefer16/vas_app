@@ -39,8 +39,8 @@ const ButtonCustom = ({
                style={{
                   textAlign: "center",
                   color: Colors[colorScheme ?? "light"].buttonText,
-                  fontSize: 16,
-                  fontFamily: "Poppins600",
+                  fontSize: 14,
+                  fontFamily: "Poppins500",
                }}
             >
                {text}

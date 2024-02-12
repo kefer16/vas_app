@@ -2,17 +2,14 @@ import { Text, View, useColorScheme, Platform } from "react-native";
 import InputTextCustom from "../components/InputTextCustom";
 import { useState, useContext } from "react";
 import InputPasswordCustom from "../components/InputPasswordCustom";
-import { router } from "expo-router";
 import ContainerCustom from "../components/ContainerCustom";
 import Colors from "../constants/Colors";
 import ButtonCustom from "../components/ButtonCustom";
 import { VasSesionContext } from "@/contexts/Sesion.context";
-import { LogeoUsuario } from "@/interfaces/responses/usuario-res.interface";
-import { UsuarioService } from "@/services/user.service";
+import { router } from "expo-router";
 
 export default function LoginScreen() {
-   const { mostrarNotificacion, guardarSesion, activarCarga } =
-      useContext(VasSesionContext);
+   const { mostrarNotificacion, activarCarga } = useContext(VasSesionContext);
 
    const colorScheme = useColorScheme();
 
@@ -36,22 +33,24 @@ export default function LoginScreen() {
          return;
       }
 
-      const srvUsuario = new UsuarioService();
+      // const srvUsuario = new UsuarioService();
       activarCarga(true);
-      await srvUsuario
-         .logearse(usuario, contrasenia)
-         .then((resp: LogeoUsuario) => {
-            mostrarNotificacion({
-               tipo: "success",
-               detalle: `Hola Bienvenido ${resp.usuario}`,
-            });
 
-            guardarSesion(resp);
-            router.replace("/(home)/inicio");
-         })
-         .catch((error: Error) => {
-            mostrarNotificacion({ tipo: "error", detalle: error.message });
-         });
+      // await srvUsuario
+      //    .logearse(usuario, contrasenia)
+      //    .then((resp: LogeoUsuario) => {
+      //       mostrarNotificacion({
+      //          tipo: "success",
+      //          detalle: `Hola Bienvenido ${resp.usuario}`,
+      //       });
+
+      //       guardarSesion(resp);
+      //       router.replace("/(home)/inicio");
+      //    })
+      //    .catch((error: Error) => {
+      //       mostrarNotificacion({ tipo: "error", detalle: error.message });
+      //    });
+      router.replace("/(home)/inicio");
       activarCarga(false);
    };
 
@@ -77,22 +76,22 @@ export default function LoginScreen() {
                lineHeight: 36,
                color: Colors[colorScheme ?? "light"].textTitle,
                textAlign: "center",
-               fontFamily: "Poppins900",
+               fontFamily: "Poppins600",
             }}
          >
-            Bienvenido,
+            Bienvenido a Vas
          </Text>
          <Text
             style={{
-               fontSize: 20,
-               lineHeight: 22,
+               fontSize: 14,
+               lineHeight: 18,
                color: Colors[colorScheme ?? "light"].textSubtitle,
                textAlign: "center",
                fontFamily: "Poppins400",
                marginBottom: 50,
             }}
          >
-            a VAS
+            por favor, ingresa tus datos
          </Text>
 
          <View
@@ -124,19 +123,37 @@ export default function LoginScreen() {
                }
             />
 
-            {/* <Text
+            <View
+               style={{
+                  width: "100%",
+                  display: "flex",
+                  flexDirection: "row",
+               }}
+            >
+               <Text
                   style={{
-                     width: "100%",
-                     textAlign: "right",
+                     width: "50%",
+                     textAlign: "left",
                      color: Colors[colorScheme ?? "light"].text,
-                     fontSize: 13,
+                     fontSize: 12,
                      fontFamily: "Poppins400",
-                     textDecorationLine: "underline",
-                     marginBottom: 10,
+                  }}
+               >
+                  ✅Recuérdame
+               </Text>
+               <Text
+                  style={{
+                     width: "50%",
+                     textAlign: "right",
+                     color: Colors[colorScheme ?? "light"].textLink,
+                     fontSize: 12,
+                     fontFamily: "Poppins400",
                   }}
                >
                   Has olvidado tu contraseña?
-               </Text> */}
+               </Text>
+            </View>
+
             <ButtonCustom text="Iniciar Sesión" onPress={funIniciarSesion} />
 
             <View
@@ -150,11 +167,22 @@ export default function LoginScreen() {
                <Text
                   style={{
                      color: Colors[colorScheme ?? "light"].text,
-                     fontSize: 13,
+                     fontSize: 12,
                      fontFamily: "Poppins400",
                   }}
                >
-                  Aun no tienes cuenta?
+                  Nuevo aquí?
+               </Text>
+               <Text
+                  style={{
+                     color: Colors[colorScheme ?? "light"].textLink,
+                     fontSize: 12,
+                     marginLeft: 10,
+                     fontFamily: "Poppins400",
+                     textDecorationLine: "underline",
+                  }}
+               >
+                  Create una cuenta
                </Text>
             </View>
          </View>

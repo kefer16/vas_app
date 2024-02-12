@@ -73,8 +73,8 @@ export default function InputTextCustom({
                   paddingLeft: 10,
                   paddingRight: 50,
                   borderRadius: 5,
-                  backgroundColor:
-                     Colors[colorScheme ?? "light"].inputContainer,
+                  // backgroundColor:
+                  //    Colors[colorScheme ?? "light"].inputContainer,
                   borderStyle: "solid",
                   borderWidth: 1,
                   borderColor: Colors[colorScheme ?? "light"].inputBorder,
