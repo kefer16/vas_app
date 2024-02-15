@@ -1,10 +1,8 @@
-import { View, Text, useColorScheme, TouchableOpacity } from "react-native";
-import Colors from "../constants/Colors";
+import { View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Href } from "expo-router/build/link/href";
 import Constants from "expo-constants";
-import { LinearGradient } from "expo-linear-gradient";
 interface Props {
    title: string;
    urlBack?: Href;
@@ -12,20 +10,18 @@ interface Props {
 }
 
 const HeaderCustom = ({ title, urlBack, isSecondaryPage }: Props) => {
-   const colorScheme = useColorScheme();
-
    return (
       <View
          style={{
             paddingTop: Constants.statusBarHeight,
             width: "100%",
+            height: 70,
             display: "flex",
             flexDirection: "row",
             alignSelf: "flex-end",
-            // backgroundColor: Colors[colorScheme ?? "light"].containerHeader,
+            // backgroundColor: "red",
             paddingHorizontal: 10,
-            paddingVertical: 10,
-            paddingTop: Constants.statusBarHeight,
+            alignItems: "center",
          }}
       >
          {isSecondaryPage && (
@@ -54,9 +50,9 @@ const HeaderCustom = ({ title, urlBack, isSecondaryPage }: Props) => {
 
          <Text
             style={{
-               fontSize: 20,
+               fontSize: 15,
                color: "#fff",
-               fontFamily: "Poppins700",
+               fontFamily: "Poppins600",
             }}
          >
             {title}

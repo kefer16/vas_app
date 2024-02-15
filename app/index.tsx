@@ -1,4 +1,4 @@
-import { Text, View, useColorScheme, Platform } from "react-native";
+import { Text, View, useColorScheme, Image } from "react-native";
 import InputTextCustom from "../components/InputTextCustom";
 import { useState, useContext } from "react";
 import InputPasswordCustom from "../components/InputPasswordCustom";
@@ -6,7 +6,9 @@ import ContainerCustom from "../components/ContainerCustom";
 import Colors from "../constants/Colors";
 import ButtonCustom from "../components/ButtonCustom";
 import { VasSesionContext } from "@/contexts/Sesion.context";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
+import Constants from "expo-constants";
+import CheckBoxCustom from "@/components/CheckBoxCustom";
 
 export default function LoginScreen() {
    const { mostrarNotificacion, activarCarga } = useContext(VasSesionContext);
@@ -14,6 +16,7 @@ export default function LoginScreen() {
    const colorScheme = useColorScheme();
 
    const [usuario, setUsuario] = useState<string>("");
+   const [IsRemenber, setIsRemenber] = useState<boolean>(false);
    const [esconderContrasenia, setEsconderContrasenia] =
       useState<boolean>(true);
    const [contrasenia, setContrasenia] = useState<string>("");
@@ -59,16 +62,55 @@ export default function LoginScreen() {
          <View
             style={{
                flex: 1,
+               position: "relative",
+               marginTop: Constants.statusBarHeight,
                justifyContent: "center",
                alignItems: "center",
-               marginTop: Platform.OS === "android" ? 100 : 50,
-               marginBottom: 50,
                marginHorizontal: "auto",
                width: "100%",
-               height: 80,
+               height: 200,
                alignSelf: "center",
             }}
-         ></View>
+         >
+            <Image
+               style={{
+                  width: "100%",
+                  height: 200,
+               }}
+               blurRadius={4}
+               source={require("../public/images/gestion.jpg")}
+            />
+
+            <View
+               style={{
+                  position: "absolute",
+                  top: 0,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                  height: 150,
+                  // backgroundColor: "red",
+               }}
+            >
+               <Image
+                  style={{
+                     width: 70,
+                     height: 70,
+                     // bottom: 0,
+                  }}
+                  source={require("../public/images/favicon-vas.png")}
+               />
+            </View>
+
+            <Image
+               style={{
+                  position: "absolute",
+                  width: "100%",
+                  bottom: 0,
+               }}
+               source={require("../public/images/vector.png")}
+            />
+         </View>
 
          <Text
             style={{
@@ -88,10 +130,10 @@ export default function LoginScreen() {
                color: Colors[colorScheme ?? "light"].textSubtitle,
                textAlign: "center",
                fontFamily: "Poppins400",
-               marginBottom: 50,
+               marginBottom: 30,
             }}
          >
-            por favor, ingresa tus datos
+            tu app de gestión de proyectos
          </Text>
 
          <View
@@ -126,21 +168,17 @@ export default function LoginScreen() {
             <View
                style={{
                   width: "100%",
+                  height: 20,
                   display: "flex",
                   flexDirection: "row",
+                  alignItems: "center",
                }}
             >
-               <Text
-                  style={{
-                     width: "50%",
-                     textAlign: "left",
-                     color: Colors[colorScheme ?? "light"].text,
-                     fontSize: 12,
-                     fontFamily: "Poppins400",
-                  }}
-               >
-                  ✅Recuérdame
-               </Text>
+               <CheckBoxCustom
+                  label="Recuérdame"
+                  value={IsRemenber}
+                  setValue={setIsRemenber}
+               />
                <Text
                   style={{
                      width: "50%",
@@ -148,6 +186,7 @@ export default function LoginScreen() {
                      color: Colors[colorScheme ?? "light"].textLink,
                      fontSize: 12,
                      fontFamily: "Poppins400",
+                     textDecorationLine: "underline",
                   }}
                >
                   Has olvidado tu contraseña?
@@ -171,9 +210,10 @@ export default function LoginScreen() {
                      fontFamily: "Poppins400",
                   }}
                >
-                  Nuevo aquí?
+                  Aún no tienes cuenta?
                </Text>
-               <Text
+               <Link
+                  href="/register"
                   style={{
                      color: Colors[colorScheme ?? "light"].textLink,
                      fontSize: 12,
@@ -182,8 +222,8 @@ export default function LoginScreen() {
                      textDecorationLine: "underline",
                   }}
                >
-                  Create una cuenta
-               </Text>
+                  <Text>Regístrate</Text>
+               </Link>
             </View>
          </View>
       </ContainerCustom>
