@@ -7,8 +7,10 @@ import Colors from "../constants/Colors";
 import ButtonCustom from "../components/ButtonCustom";
 import { VasSesionContext } from "@/contexts/Sesion.context";
 import { Link, router } from "expo-router";
-import Constants from "expo-constants";
 import CheckBoxCustom from "@/components/CheckBoxCustom";
+import { AccountService } from "@/apis/account/account.service";
+import { LoginAccountReqDto } from "@/apis/account/dto/requests/login-account-req.dto";
+import { LoginAccountResDto } from "@/apis/account/dto/responses/login-account-res.dto";
 
 export default function LoginScreen() {
    const { mostrarNotificacion, activarCarga } = useContext(VasSesionContext);
@@ -21,7 +23,7 @@ export default function LoginScreen() {
       useState<boolean>(true);
    const [contrasenia, setContrasenia] = useState<string>("");
 
-   const funIniciarSesion = async () => {
+   const funLoginAccount = async () => {
       if (!usuario) {
          mostrarNotificacion({ tipo: "success", detalle: "Ingrese usuario" });
 
@@ -36,24 +38,29 @@ export default function LoginScreen() {
          return;
       }
 
-      // const srvUsuario = new UsuarioService();
+      const srvAccount = new AccountService();
+      const data: LoginAccountReqDto = {
+         UserName: usuario,
+         Password: contrasenia,
+      };
       activarCarga(true);
 
-      // await srvUsuario
-      //    .logearse(usuario, contrasenia)
-      //    .then((resp: LogeoUsuario) => {
-      //       mostrarNotificacion({
-      //          tipo: "success",
-      //          detalle: `Hola Bienvenido ${resp.usuario}`,
-      //       });
+      await srvAccount
+         .login(data)
+         .then((resp: LoginAccountResDto) => {
+            console.log(resp);
 
-      //       guardarSesion(resp);
-      //       router.replace("/(home)/inicio");
-      //    })
-      //    .catch((error: Error) => {
-      //       mostrarNotificacion({ tipo: "error", detalle: error.message });
-      //    });
-      router.replace("/(home)/inicio");
+            mostrarNotificacion({
+               tipo: "success",
+               detalle: `Hola Bienvenido ${resp.UserName}`,
+            });
+
+            // guardarSesion(resp);
+            router.replace("/(home)/inicio/");
+         })
+         .catch((error: Error) => {
+            mostrarNotificacion({ tipo: "error", detalle: error.message });
+         });
       activarCarga(false);
    };
 
@@ -63,19 +70,19 @@ export default function LoginScreen() {
             style={{
                flex: 1,
                position: "relative",
-               marginTop: Constants.statusBarHeight,
+               // marginTop: Constants.statusBarHeight,
                justifyContent: "center",
                alignItems: "center",
                marginHorizontal: "auto",
                width: "100%",
-               height: 200,
+               height: 250,
                alignSelf: "center",
             }}
          >
             <Image
                style={{
                   width: "100%",
-                  height: 200,
+                  height: 250,
                }}
                blurRadius={4}
                source={require("../public/images/gestion.jpg")}
@@ -84,19 +91,16 @@ export default function LoginScreen() {
             <View
                style={{
                   position: "absolute",
-                  top: 0,
-                  justifyContent: "center",
+                  display: "flex",
+                  top: 55,
                   alignItems: "center",
                   width: "100%",
-                  height: 150,
-                  // backgroundColor: "red",
                }}
             >
                <Image
                   style={{
                      width: 70,
                      height: 70,
-                     // bottom: 0,
                   }}
                   source={require("../public/images/favicon-vas.png")}
                />
@@ -193,7 +197,7 @@ export default function LoginScreen() {
                </Text>
             </View>
 
-            <ButtonCustom text="Iniciar Sesión" onPress={funIniciarSesion} />
+            <ButtonCustom text="Iniciar Sesión" onPress={funLoginAccount} />
 
             <View
                style={{
@@ -213,7 +217,7 @@ export default function LoginScreen() {
                   Aún no tienes cuenta?
                </Text>
                <Link
-                  href="/register"
+                  href="/create"
                   style={{
                      color: Colors[colorScheme ?? "light"].textLink,
                      fontSize: 12,

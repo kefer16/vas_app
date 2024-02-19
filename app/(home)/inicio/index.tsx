@@ -19,7 +19,7 @@ const index = () => {
             <TitleCustom
                textStyle={{ marginTop: 10 }}
                textSize={20}
-               text="Estadísticas de Postulantes"
+               text="Estadísticas"
             />
             <View
                style={{
@@ -34,28 +34,28 @@ const index = () => {
                }}
             >
                <CardCustom
-                  title="Total Registrados"
+                  title="Total ..."
                   text=""
                   iconName={"person-add"}
                   quantity={1}
                   viewBackgroundColor="#2A166D"
                />
                <CardCustom
-                  title="Total Pendientes"
+                  title="Total ..."
                   text=""
                   iconName={"person"}
                   quantity={2}
                   viewBackgroundColor="#ff9800"
                />
                <CardCustom
-                  title="Total Llamados"
+                  title="Total ..."
                   text=""
                   quantity={3}
                   iconName={"call"}
                   viewBackgroundColor="#00bcd4"
                />
                <CardCustom
-                  title="Total Confirmados"
+                  title="Total ..."
                   text=""
                   quantity={4}
                   iconName={"checkmark-circle"}
@@ -63,14 +63,14 @@ const index = () => {
                />
 
                <CardCustom
-                  title="Total Retirados"
+                  title="Total ..."
                   text=""
                   quantity={5}
                   iconName={"close-circle"}
                   viewBackgroundColor="#f44336"
                />
                <CardCustom
-                  title="Total Carreras Activas"
+                  title="Total ..."
                   text=""
                   quantity={6}
                   iconName={"school"}

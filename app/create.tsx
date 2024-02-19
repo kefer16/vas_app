@@ -1,44 +1,69 @@
-import { View, Text, useColorScheme, TouchableOpacity } from "react-native";
+import { View, Text, useColorScheme } from "react-native";
 import React, { useContext, useState } from "react";
 import ContainerCustom from "@/components/ContainerCustom";
 import HeaderCustom from "@/components/HeaderCustom";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import Colors from "@/constants/Colors";
 import InputTextCustom from "@/components/InputTextCustom";
 import InputPasswordCustom from "@/components/InputPasswordCustom";
 import { VasSesionContext } from "@/contexts/Sesion.context";
 import ButtonCustom from "@/components/ButtonCustom";
+import { currentDateISO, validateEmail } from "@/utils/functions";
+import { CreateAccountReqDto } from "@/apis/account/dto/requests/create-account-req.dto";
+import { AccountService } from "@/apis/account/account.service";
 
-const Register = () => {
+const Create = () => {
    const { mostrarNotificacion, activarCarga } = useContext(VasSesionContext);
    const colorScheme = useColorScheme();
-   const [correo, setCorreo] = useState<string>("");
-   const [usuario, setUsuario] = useState<string>("");
-   const [contrasenia, setContrasenia] = useState<string>("");
-   const [esconderContrasenia, setEsconderContrasenia] =
-      useState<boolean>(true);
-   const [repetirContrasenia, setRepetirContrasenia] = useState<string>("");
-   const [esconderRepetirContrasenia, setEsconderRepetirContrasenia] =
-      useState<boolean>(true);
+   const [email, setEmail] = useState<string>("");
+   const [user, setUser] = useState<string>("");
+   const [password, setPassword] = useState<string>("");
+   const [hidePassword, setHidePassword] = useState<boolean>(true);
+   const [repeatPassword, setRepeatPassword] = useState<string>("");
+   const [hideRepeatPassword, setHideRepeatPassword] = useState<boolean>(true);
 
    const funLimpiarFormulario = () => {
-      setCorreo("");
-      setUsuario("");
-      setContrasenia("");
-      setRepetirContrasenia("");
+      setEmail("");
+      setUser("");
+      setPassword("");
+      setRepeatPassword("");
    };
    const funEsDatosCorrectos = (): boolean => {
-      if (!correo) {
+      if (!email) {
          mostrarNotificacion({ tipo: "warn", detalle: "Ingrese un correo" });
          return false;
       }
 
-      if (!usuario) {
+      if (email.length <= 10) {
+         mostrarNotificacion({
+            tipo: "warn",
+            detalle: "correo inválido",
+         });
+         return false;
+      }
+
+      if (!validateEmail(email)) {
+         mostrarNotificacion({
+            tipo: "warn",
+            detalle: "correo inválido",
+         });
+         return false;
+      }
+
+      if (!user) {
          mostrarNotificacion({ tipo: "warn", detalle: "Ingrese un usuario" });
          return false;
       }
 
-      if (!contrasenia) {
+      if (user.length <= 4) {
+         mostrarNotificacion({
+            tipo: "warn",
+            detalle: "el nombre de usuario debe ser mínimo de 5 caracteres",
+         });
+         return false;
+      }
+
+      if (!password) {
          mostrarNotificacion({
             tipo: "warn",
             detalle: "Ingrese una contraseña",
@@ -46,12 +71,12 @@ const Register = () => {
          return false;
       }
 
-      if (!repetirContrasenia) {
+      if (!repeatPassword) {
          mostrarNotificacion({ tipo: "warn", detalle: "Repita su contraseña" });
          return false;
       }
 
-      if (contrasenia !== repetirContrasenia) {
+      if (password !== repeatPassword) {
          mostrarNotificacion({
             tipo: "warn",
             detalle: "Las contraseñas deben ser iguales",
@@ -59,7 +84,7 @@ const Register = () => {
          return false;
       }
 
-      if (contrasenia.length <= 7) {
+      if (password.length <= 7) {
          mostrarNotificacion({
             tipo: "warn",
             detalle: "La contraseña debe debe ser mínimo de 8 caracteres",
@@ -68,31 +93,37 @@ const Register = () => {
       }
       return true;
    };
-   const funCrearCuenta = async () => {
+   const funCreateAccount = async () => {
       if (!funEsDatosCorrectos()) {
          return;
       }
-      // const data: = new da;
+      const data: CreateAccountReqDto = {
+         UserName: user,
+         Password: password,
+         Email: email,
+         CreationDate: currentDateISO(),
+      };
+      const srvAccount = new AccountService();
 
-      // activarCarga(true);
-      // await srvUsuario
-      //    .registrarIndividual(data)
-      //    .then(() => {
-      //       mostrarNotificacion({
-      //          tipo: "success",
-      //          detalle: "Se creó la cuenta correctamente, ahora Inicia Sesión",
-      //       });
-      //       funLimpiarFormulario();
-      //    })
-      //    .catch((error: Error) => {
-      //       mostrarNotificacion({ tipo: "error", detalle: error.message });
-      //    });
+      activarCarga(true);
+      await srvAccount
+         .create(data)
+         .then(() => {
+            funLimpiarFormulario();
+            router.replace({
+               pathname: "/activate",
+               params: { email: email },
+            });
+         })
+         .catch((error: Error) => {
+            mostrarNotificacion({ tipo: "error", detalle: error.message });
+         });
       activarCarga(false);
    };
 
    return (
       <ContainerCustom>
-         <HeaderCustom title="Registro" isSecondaryPage={true} urlBack="/" />
+         <HeaderCustom title="Registro" isSecondaryPage={true} />
 
          <View
             style={{
@@ -132,8 +163,8 @@ const Register = () => {
                styleInput={{ textTransform: "lowercase" }}
                title="Correo"
                placeholder="Escriba el correo"
-               value={correo}
-               functionChangeText={setCorreo}
+               value={email}
+               functionChangeText={setEmail}
                keyboardType="default"
                maxLength={30}
                inputIsRequired={true}
@@ -142,8 +173,8 @@ const Register = () => {
                styleInput={{ textTransform: "lowercase" }}
                title="Usuario"
                placeholder="Escriba el usuario"
-               value={usuario}
-               functionChangeText={setUsuario}
+               value={user}
+               functionChangeText={setUser}
                keyboardType="default"
                maxLength={30}
                inputIsRequired={true}
@@ -151,27 +182,25 @@ const Register = () => {
             <InputPasswordCustom
                title="Contraseña"
                placeholder="Escriba la contraseña"
-               value={contrasenia}
-               functionChangeText={setContrasenia}
-               activePassword={esconderContrasenia}
-               functionActivePassword={() =>
-                  setEsconderContrasenia(!esconderContrasenia)
-               }
+               value={password}
+               functionChangeText={setPassword}
+               activePassword={hidePassword}
+               functionActivePassword={() => setHidePassword(!hidePassword)}
                inputIsRequired={true}
             />
             <InputPasswordCustom
                title="Repetir Contraseña"
                placeholder="Vuelva a escribir la contraseña"
-               value={repetirContrasenia}
-               functionChangeText={setRepetirContrasenia}
-               activePassword={esconderRepetirContrasenia}
+               value={repeatPassword}
+               functionChangeText={setRepeatPassword}
+               activePassword={hideRepeatPassword}
                functionActivePassword={() =>
-                  setEsconderRepetirContrasenia(!esconderRepetirContrasenia)
+                  setHideRepeatPassword(!hideRepeatPassword)
                }
                inputIsRequired={true}
             />
 
-            <ButtonCustom text="Crear Cuenta" onPress={funCrearCuenta} />
+            <ButtonCustom text="Crear Cuenta" onPress={funCreateAccount} />
             <View
                style={{
                   width: "100%",
@@ -209,4 +238,4 @@ const Register = () => {
    );
 };
 
-export default Register;
+export default Create;

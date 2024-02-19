@@ -6,11 +6,7 @@ import TitleCustom from "../../../components/TitleCustom";
 const Index = () => {
    return (
       <ContainerCustom>
-         <HeaderCustom
-            title="Reportes"
-            isSecondaryPage={false}
-            urlBack={"/(home)/inicio/"}
-         />
+         <HeaderCustom title="Reportes" isSecondaryPage={false} />
 
          <View
             style={{
@@ -21,7 +17,7 @@ const Index = () => {
                gap: 10,
             }}
          >
-            <TitleCustom text="Generar Reporte de Postulantes" textSize={15} />
+            <TitleCustom text="Generar Reporte ..." textSize={15} />
          </View>
       </ContainerCustom>
    );

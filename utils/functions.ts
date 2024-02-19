@@ -69,7 +69,7 @@ export function formatoFecha(fechaString: string): string {
    const second = fecha.getSeconds().toString().padStart(2, "0");
    return `${dia}/${mes}/${anio} ${hora}:${minuto}:${second}`;
 }
-export function fechaActualISO(): string {
+export function currentDateISO(): string {
    return new Date(
       new Date().setHours(new Date().getHours() - 5)
    ).toISOString(); //restamos 5 horas a fecha actual
@@ -101,10 +101,18 @@ export const formatoMonedaPerunana = (value: number) => {
 };
 
 export const personalizarMensajeError = (error: any): any => {
-   if (error.response.data.error.isValidate) {
-      error.message = "[warn]" + error.response.data.error.message;
+   if (error.response.data.Error.IsValidate) {
+      error.message = "[warn]" + error.response.data.Error.Message;
    } else {
-      error.message = error.response.data.error.message;
+      error.message = error.response.data.Error.Message;
    }
    return error.message;
+};
+
+export const validateEmail = (pEmail: string): boolean => {
+   // Expresión regular para validar un correo electrónico
+   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+   // Validar el correo electrónico utilizando la expresión regular
+   return regex.test(pEmail);
 };

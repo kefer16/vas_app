@@ -29,6 +29,7 @@ const ButtonCustom = ({
                   borderRadius: 10,
                   backgroundColor:
                      Colors[colorScheme ?? "light"].buttonContainer,
+                  elevation: 5,
                },
                !isEnabled && {
                   opacity: 0.6,

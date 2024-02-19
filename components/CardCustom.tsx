@@ -10,7 +10,6 @@ interface Props {
 }
 const CardCustom = ({
    title,
-   text,
    quantity,
    iconName,
    viewBackgroundColor,

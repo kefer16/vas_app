@@ -8,7 +8,7 @@ previsualización de `despliegue utilizando Expo y Emulador de Android Studio`
 
 - Pantalla Login
 
-![Imagen despliegue Principal](./public/images/login.png)
+![Imagen despliegue Principal](./public/images/loginApp.png)
 
 ## Generar carpeta android
 

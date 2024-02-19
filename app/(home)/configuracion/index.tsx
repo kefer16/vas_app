@@ -29,7 +29,7 @@ const index = () => {
             <TitleCustom
                // textStyle={{ marginTop: 10 }}
                textSize={20}
-               text="Gestiona tus datos usuario"
+               text="Usuario"
             />
             <ButtonOptionCustom
                iconName={"person-circle"}
