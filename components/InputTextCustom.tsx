@@ -55,6 +55,7 @@ export default function InputTextCustom({
    return (
       <View>
          <TextInput
+            autoComplete="off"
             multiline={inputIsMultiline}
             editable={inputIsEditable}
             placeholderTextColor={

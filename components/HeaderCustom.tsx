@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity, useColorScheme } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import Constants from "expo-constants";
 import Colors from "@/constants/Colors";
 interface Props {
    title: string;
@@ -23,7 +22,6 @@ const HeaderCustom = ({ title, isSecondaryPage }: Props) => {
       >
          <View
             style={{
-               marginTop: Constants.statusBarHeight,
                width: "100%",
                height: 60,
                display: "flex",

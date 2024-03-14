@@ -116,3 +116,30 @@ export const validateEmail = (pEmail: string): boolean => {
    // Validar el correo electrónico utilizando la expresión regular
    return regex.test(pEmail);
 };
+
+export interface WeekDaysProps {
+   number: number;
+   name: string;
+}
+
+export function getDaysWeek(): WeekDaysProps[] {
+   const daysWeek: WeekDaysProps[] = [];
+   const nameDays: string[] = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+   const fechaActual: Date = new Date();
+   const diaSemanaActual: number = fechaActual.getDay(); // 0 para Domingo, 1 para Lunes, ..., 6 para Sábado
+   const diferenciaDias: number =
+      diaSemanaActual === 0 ? 6 : diaSemanaActual - 1; // Calcular la diferencia de días para llegar al lunes
+   const milisegundosPorDia: number = 24 * 60 * 60 * 1000; // 1 día en milisegundos
+   const milisegundosHastaLunes: number = diferenciaDias * milisegundosPorDia; // Milisegundos hasta llegar a lunes
+   const fechaLunes: Date = new Date(
+      fechaActual.getTime() - milisegundosHastaLunes
+   ); // Restar la diferencia para obtener el lunes
+
+   for (let i = 0; i < 7; i++) {
+      daysWeek.push({ number: fechaLunes.getDate(), name: nameDays[i] });
+      fechaLunes.setDate(fechaLunes.getDate() + 1); // Sumar un día
+   }
+   console.log(daysWeek);
+
+   return daysWeek;
+}

@@ -1,13 +1,49 @@
-import { View } from "react-native";
+import { Text, View, useColorScheme } from "react-native";
 import TitleCustom from "../../../components/TitleCustom";
 import CardCustom from "../../../components/CardCustom";
 import ContainerCustom from "@/components/ContainerCustom";
-import HeaderCustom from "@/components/HeaderCustom";
+import HeaderSearchComponent from "@/components/HeaderSearch.component";
+import { useState } from "react";
+import SectionTitleComponent from "@/components/SectionTitle.component";
+import Colors from "@/constants/Colors";
+import StatusHomeComponent from "@/components/StatusHome.component";
+import WeekSectionComponent from "@/components/WeekSection.component";
 
 const index = () => {
+   const colorScheme = useColorScheme();
+   const [inputHeader, setInputHeader] = useState<string>("");
    return (
       <ContainerCustom>
-         <HeaderCustom title={`Bienvenid@ Kefer`} isSecondaryPage={false} />
+         {/* <BarHeightCustom /> */}
+         <Text
+            style={{
+               color: Colors[colorScheme ?? "light"].text,
+               textAlign: "center",
+               fontFamily: "Poppins800",
+               marginTop: 10,
+               fontSize: 20,
+            }}
+         >
+            Compañia 01
+         </Text>
+         <HeaderSearchComponent
+            styleContainer={{ width: "100%", padding: 10 }}
+            value={inputHeader}
+            functionChangeText={setInputHeader}
+            funButtonSearch={() => {}}
+            placeholder="Ingrese el valor a buscar"
+         />
+         <StatusHomeComponent styleProps={{ paddingHorizontal: 10 }} />
+         <SectionTitleComponent
+            styleContainer={{ padding: 10 }}
+            title="Marzo 2024"
+         />
+
+         <WeekSectionComponent styleProps={{ paddingHorizontal: 10 }} />
+         <SectionTitleComponent
+            styleContainer={{ padding: 10 }}
+            title="Tus tareas"
+         />
 
          <View
             style={{

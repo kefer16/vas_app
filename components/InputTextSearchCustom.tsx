@@ -54,6 +54,7 @@ const InputTextSearchCustom = ({
    return (
       <View>
          <TextInput
+            autoComplete="off"
             editable={inputIsEditable}
             placeholderTextColor={
                Colors[colorScheme ?? "light"].InputTextPlaceHolder
