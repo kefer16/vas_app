@@ -8,10 +8,35 @@ import SectionTitleComponent from "@/components/SectionTitle.component";
 import Colors from "@/constants/Colors";
 import StatusHomeComponent from "@/components/StatusHome.component";
 import WeekSectionComponent from "@/components/WeekSection.component";
+import CompanySection from "@/components/CompanySection";
+import { CompanyRes } from "@/interfaces/responses/company-res.interface";
 
 const index = () => {
    const colorScheme = useColorScheme();
    const [inputHeader, setInputHeader] = useState<string>("");
+   const [arrayCompany, setArrayCompany] = useState<CompanyRes[]>([
+      {
+         CompanyId: "1",
+         Name: "Google",
+         Email: "email@com",
+         IsActive: true,
+         CreationDate: new Date(),
+      },
+      {
+         CompanyId: "2",
+         Name: "Facebook",
+         Email: "email@com",
+         IsActive: true,
+         CreationDate: new Date(),
+      },
+      {
+         CompanyId: "3",
+         Name: "Tiktok",
+         Email: "email@com",
+         IsActive: true,
+         CreationDate: new Date(),
+      },
+   ]);
    return (
       <ContainerCustom>
          {/* <BarHeightCustom /> */}
@@ -37,12 +62,18 @@ const index = () => {
          <SectionTitleComponent
             styleContainer={{ padding: 10 }}
             title="Marzo 2024"
+            href="/inicio/company/"
          />
 
          <WeekSectionComponent styleProps={{ paddingHorizontal: 10 }} />
          <SectionTitleComponent
             styleContainer={{ padding: 10 }}
-            title="Tus tareas"
+            title="Tus Empresas"
+            href="/(home)/inicio/company/"
+         />
+         <CompanySection
+            arrayCompanies={arrayCompany}
+            styleContainer={{ paddingHorizontal: 10, gap: 10 }}
          />
 
          <View

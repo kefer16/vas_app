@@ -23,13 +23,15 @@ export default {
       inputContainer: "#282C34",
       inputBorder: "#424b57",
       input: "#fff",
-      inputTitle: "#6f6f6f",
-      InputTextPlaceHolder: "#555555",
-      inputText: "rgba(255, 255, 255, 0.87)",
+      inputTitle: "rgba(255, 255, 255, 1)",
+      InputTextPlaceHolder: "rgba(255, 255, 255, 0.5)",
+      inputText: "rgba(255, 255, 255, 1)",
 
       //button
       buttonContainer: "#8673FF",
       buttonText: "#fff",
+      //separator
+      separatorBackground: "rgba(255, 255, 255, 0.5)",
    },
    dark: {
       container: "#191923",
@@ -39,7 +41,7 @@ export default {
       text: "#fff",
       textLink: "#8673FF",
       textTitle: "#fff",
-      textSubtitle: "#6f6f6f",
+      textSubtitle: "rgba(225, 225, 225, 0.7)",
       borderSepare: "#6f6f6f",
       card: "#282C34",
       background: "#232323",
@@ -53,14 +55,16 @@ export default {
       footerButtonHover: "#8673FF",
       //input
       inputContainer: "#282C34",
-      inputBorder: "#424b57",
+      inputBorder: "rgba(255, 255, 255, 0.5)",
       input: "#fff",
-      inputTitle: "#6f6f6f",
-      InputTextPlaceHolder: "#555555",
-      inputText: "rgba(255, 255, 255, 0.87)",
+      inputTitle: "rgba(255, 255, 255, 1)",
+      InputTextPlaceHolder: "rgba(255, 255, 255, 0.5)",
+      inputText: "rgba(255, 255, 255, 1)",
 
       //button
       buttonContainer: "#8673FF",
       buttonText: "#fff",
+      //separator
+      separatorBackground: "rgba(255, 255, 255, 0.1)",
    },
 };

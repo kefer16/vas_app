@@ -75,14 +75,14 @@ export default function LoginScreen() {
                alignItems: "center",
                marginHorizontal: "auto",
                width: "100%",
-               height: 250,
+               height: 300,
                alignSelf: "center",
             }}
          >
             <Image
                style={{
                   width: "100%",
-                  height: 250,
+                  height: 300,
                }}
                blurRadius={4}
                source={require("../public/images/gestion.jpg")}
@@ -92,7 +92,7 @@ export default function LoginScreen() {
                style={{
                   position: "absolute",
                   display: "flex",
-                  top: 55,
+                  top: 60,
                   alignItems: "center",
                   width: "100%",
                }}

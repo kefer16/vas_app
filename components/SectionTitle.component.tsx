@@ -1,13 +1,14 @@
 import { View, Text, useColorScheme, StyleProp, ViewStyle } from "react-native";
 import React from "react";
 import Colors from "@/constants/Colors";
-import { Link } from "expo-router";
+import { Href, Link } from "expo-router";
 interface Props {
    styleContainer: StyleProp<ViewStyle>;
    title: string;
+   href: Href<string>;
 }
 
-const SectionTitleComponent = ({ styleContainer, title }: Props) => {
+const SectionTitleComponent = ({ styleContainer, title, href }: Props) => {
    const colorScheme = useColorScheme();
    return (
       <View
@@ -31,7 +32,7 @@ const SectionTitleComponent = ({ styleContainer, title }: Props) => {
             {title}
          </Text>
          <Link
-            href={"/"}
+            href={href}
             style={{
                color: Colors[colorScheme ?? "light"].textSubtitle,
                fontFamily: "Poppins400",
