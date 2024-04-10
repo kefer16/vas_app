@@ -25,6 +25,10 @@ const ButtonIcon = ({
    const colorScheme = useColorScheme();
    return (
       <TouchableOpacity
+         style={{
+            backgroundColor: Colors[colorScheme ?? "light"].buttonContainer,
+            borderRadius: 10,
+         }}
          onPress={() => {
             isEnabled && onPress();
          }}
@@ -38,10 +42,6 @@ const ButtonIcon = ({
                   flexDirection: "row",
                   justifyContent: "center",
                   alignItems: "center",
-                  borderRadius: 10,
-                  backgroundColor:
-                     Colors[colorScheme ?? "light"].buttonContainer,
-                  elevation: 5,
                },
                !isEnabled && {
                   opacity: 0.6,

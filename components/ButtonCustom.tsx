@@ -17,6 +17,10 @@ const ButtonCustom = ({
    const colorScheme = useColorScheme();
    return (
       <TouchableOpacity
+         style={{
+            borderRadius: 10,
+            backgroundColor: Colors[colorScheme ?? "light"].buttonContainer,
+         }}
          onPress={() => {
             isEnabled && onPress();
          }}
@@ -26,10 +30,6 @@ const ButtonCustom = ({
                {
                   width: "100%",
                   paddingVertical: 15,
-                  borderRadius: 10,
-                  backgroundColor:
-                     Colors[colorScheme ?? "light"].buttonContainer,
-                  elevation: 5,
                },
                !isEnabled && {
                   opacity: 0.6,

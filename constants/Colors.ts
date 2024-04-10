@@ -1,15 +1,15 @@
 export default {
    light: {
-      container: "#191923",
+      container: "#rgba(255,255,255,0.4)",
       iconPrimary: "#BFA3F9",
       iconSecondary: "#6f6f6f",
       containerHeader: "#8673FF",
-      text: "#fff",
+      text: "#000",
       textLink: "#8673FF",
-      textTitle: "#fff",
+      textTitle: "#000",
       textSubtitle: "#6f6f6f",
       borderSepare: "#6f6f6f",
-      card: "#282C34",
+      card: "rgba(255,255,255,1)",
       background: "#232323",
       tint: "#fff",
       //optionButtton
@@ -20,18 +20,25 @@ export default {
       footerButton: "#DAD8D9",
       footerButtonHover: "#8673FF",
       //input
-      inputContainer: "#282C34",
+      inputContainer: "rgba(255,255,255,1)",
       inputBorder: "#424b57",
       input: "#fff",
-      inputTitle: "rgba(255, 255, 255, 1)",
-      InputTextPlaceHolder: "rgba(255, 255, 255, 0.5)",
-      inputText: "rgba(255, 255, 255, 1)",
+      inputTitle: "rgba(0, 0, 0, 1)",
+      InputTextPlaceHolder: "rgba(0, 0, 0, 0.5)",
+      inputText: "rgba(0, 0, 0, 1)",
 
       //button
       buttonContainer: "#8673FF",
       buttonText: "#fff",
       //separator
-      separatorBackground: "rgba(255, 255, 255, 0.5)",
+      separatorBackground: "rgba(0, 0, 0, 0.5)",
+      //button icon
+      buttonIconColor: "rgba(0, 0, 0, 1)",
+      buttonIconBackground: "rgba(255, 255, 255, 1)",
+      //view card
+      viewCardBackground: "rgba(255, 255, 255, 1)",
+      viewCardTitle: "rgba(0, 0, 0, 0.5)",
+      viewCardSubTitle: "rgba(0, 0, 0, 1)",
    },
    dark: {
       container: "#191923",
@@ -66,5 +73,13 @@ export default {
       buttonText: "#fff",
       //separator
       separatorBackground: "rgba(255, 255, 255, 0.1)",
+      //button icon
+      buttonIconColor: "rgba(255, 255, 255, 1)",
+      buttonIconBackground: "#282C34",
+
+      //view card
+      viewCardBackground: "#282C34",
+      viewCardTitle: "rgba(255, 255, 255, 0.5)",
+      viewCardSubTitle: "rgba(255, 255, 255, 1)",
    },
 };

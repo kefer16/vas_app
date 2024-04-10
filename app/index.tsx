@@ -48,8 +48,6 @@ export default function LoginScreen() {
       await srvAccount
          .login(data)
          .then((resp: LoginAccountResDto) => {
-            console.log(resp);
-
             mostrarNotificacion({
                tipo: "success",
                detalle: `Hola Bienvenido ${resp.UserName}`,

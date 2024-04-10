@@ -139,7 +139,6 @@ export function getDaysWeek(): WeekDaysProps[] {
       daysWeek.push({ number: fechaLunes.getDate(), name: nameDays[i] });
       fechaLunes.setDate(fechaLunes.getDate() + 1); // Sumar un día
    }
-   console.log(daysWeek);
 
    return daysWeek;
 }

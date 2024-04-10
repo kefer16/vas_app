@@ -1,24 +1,17 @@
-import {
-   View,
-   Text,
-   StyleProp,
-   TextStyle,
-   useColorScheme,
-   TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleProp, TextStyle, useColorScheme } from "react-native";
 import React from "react";
 import Colors from "@/constants/Colors";
 import { EllipsisVertical, Undo2 } from "lucide-react-native";
-import { useNavigation } from "expo-router";
+import { router } from "expo-router";
+import ButtonIcon from "./ButtonRoundedIcon";
 interface Props {
    textStyle?: StyleProp<TextStyle>;
    text: string;
 }
 const TitleList = ({ textStyle, text }: Props) => {
-   const navigate = useNavigation();
    const colorScheme = useColorScheme();
    const btnReturn = () => {
-      navigate.goBack();
+      router.back();
    };
    return (
       <View
@@ -31,25 +24,13 @@ const TitleList = ({ textStyle, text }: Props) => {
             // backgroundColor: "red",
          }}
       >
-         <TouchableOpacity
-            style={{
-               backgroundColor: Colors[colorScheme ?? "light"].card,
-               padding: 10,
-               borderRadius: 50,
-               display: "flex",
-               justifyContent: "center",
-               alignItems: "center",
-            }}
-            onPress={btnReturn}
-         >
-            <Undo2 size={20} color={"#fff"} />
-         </TouchableOpacity>
+         <ButtonIcon onPress={btnReturn} iconLucide={Undo2} />
          <Text
             style={[
                {
                   fontSize: 20,
                   lineHeight: 26,
-                  color: Colors[colorScheme ?? "light"].textTitle,
+                  color: Colors[colorScheme ?? "light"].buttonIconColor,
                   fontFamily: "Poppins700",
                },
                textStyle,
@@ -57,18 +38,8 @@ const TitleList = ({ textStyle, text }: Props) => {
          >
             {text}
          </Text>
-         <TouchableOpacity
-            style={{
-               backgroundColor: Colors[colorScheme ?? "light"].card,
-               padding: 10,
-               borderRadius: 50,
-               display: "flex",
-               justifyContent: "center",
-               alignItems: "center",
-            }}
-         >
-            <EllipsisVertical size={20} color={"#fff"} />
-         </TouchableOpacity>
+
+         <ButtonIcon onPress={btnReturn} iconLucide={EllipsisVertical} />
       </View>
    );
 };

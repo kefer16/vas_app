@@ -7,9 +7,13 @@ const Separator = () => {
    return (
       <View
          style={{
+            // flex: 1,
             width: "100%",
-            height: 1,
-            backgroundColor: Colors[colorScheme ?? "light"].separatorBackground,
+            // height: 1,
+            maxHeight: 0.5,
+            borderBottomWidth: 0.5,
+            borderBottomColor:
+               Colors[colorScheme ?? "light"].separatorBackground,
          }}
       />
    );

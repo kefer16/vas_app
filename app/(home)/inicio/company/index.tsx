@@ -4,7 +4,7 @@ import { View } from "@/components/Themed";
 import InputTextSearchCustom from "@/components/InputTextSearchCustom";
 import TitleList from "@/components/TitleList";
 import CompanySection from "@/components/CompanySection";
-import ButtonIcon from "@/components/ButtonIcon";
+import ButtonIcon from "@/components/ButtonIconText";
 import { Dimensions } from "react-native";
 import SubTitleList from "@/components/SubTitleList";
 import Separator from "@/components/Separator";

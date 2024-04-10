@@ -21,12 +21,9 @@ export class AccountApi {
             },
          };
          const body = JSON.stringify(data);
-         console.log(body);
 
          return await axios.post(`${this.url}/create`, body, config);
       } catch (error: any) {
-         console.log(error.response.data);
-
          error.message = personalizarMensajeError(error);
          return Promise.reject(error);
       }
@@ -41,8 +38,6 @@ export class AccountApi {
             },
          };
          const body = JSON.stringify(pBody);
-         console.log(this.url);
-         console.log(body);
 
          return await axios.put(`${this.url}/activate`, body, config);
       } catch (error: any) {

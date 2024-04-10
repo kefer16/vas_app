@@ -87,14 +87,16 @@ const InputTextSearchCustom = ({
          <View
             style={{
                position: "absolute",
+               width: 50,
                height: 50,
                bottom: 0,
-               right: 20,
+               right: 10,
                display: "flex",
                alignItems: "center",
                justifyContent: "center",
-               zIndex: 1,
-               // backgroundColor: "red",
+               zIndex: 2,
+               backgroundColor: Colors[colorScheme ?? "light"].inputContainer,
+               borderRadius: 50,
             }}
          >
             <TouchableOpacity
@@ -104,13 +106,16 @@ const InputTextSearchCustom = ({
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  // backgroundColor: "green",
                }}
                onPress={() => {
                   inputIsEditable && funButtonSearch();
                }}
             >
-               <Search color={"#fff"} size={20} />
+               <Search
+                  size={20}
+                  color={Colors[colorScheme ?? "light"].buttonIconColor}
+                  strokeWidth={2}
+               />
             </TouchableOpacity>
          </View>
       </View>
