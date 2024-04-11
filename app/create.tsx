@@ -4,7 +4,7 @@ import ContainerCustom from "@/components/ContainerCustom";
 import HeaderCustom from "@/components/HeaderCustom";
 import { Link, router } from "expo-router";
 import Colors from "@/constants/Colors";
-import InputTextCustom from "@/components/InputTextCustom";
+import InputText from "@/components/InputText";
 import InputPasswordCustom from "@/components/InputPasswordCustom";
 import { VasSesionContext } from "@/contexts/Sesion.context";
 import ButtonCustom from "@/components/ButtonCustom";
@@ -159,7 +159,7 @@ const Create = () => {
             >
                para comenzar ahora!
             </Text>
-            <InputTextCustom
+            <InputText
                styleInput={{ textTransform: "lowercase" }}
                title="Correo"
                placeholder="Escriba el correo"
@@ -169,7 +169,7 @@ const Create = () => {
                maxLength={30}
                inputIsRequired={true}
             />
-            <InputTextCustom
+            <InputText
                styleInput={{ textTransform: "lowercase" }}
                title="Usuario"
                placeholder="Escriba el usuario"

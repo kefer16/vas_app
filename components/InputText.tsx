@@ -15,9 +15,9 @@ import * as Clipboard from "expo-clipboard";
 import { Ionicons } from "@expo/vector-icons";
 interface Props {
    title: string;
-   placeholder: string;
+   placeholder?: string;
    value: string;
-   keyboardType: KeyboardTypeOptions;
+   keyboardType?: KeyboardTypeOptions;
    functionChangeText: Dispatch<SetStateAction<string>>;
    styleContainer?: StyleProp<ViewStyle>;
    styleInput?: StyleProp<TextStyle>;
@@ -26,14 +26,14 @@ interface Props {
    inputIsEditable?: boolean;
    inputIsMultiline?: boolean;
 }
-export default function InputTextCustom({
+export default function InputText({
    title,
-   placeholder,
+   placeholder = "",
    value,
    functionChangeText,
    styleContainer,
    styleInput,
-   keyboardType,
+   keyboardType = "default",
    maxLength,
    inputIsRequired = false,
    inputIsEditable = true,
@@ -65,17 +65,16 @@ export default function InputTextCustom({
                {
                   display: "flex",
                   width: "100%",
-                  fontSize: 15,
-                  lineHeight: 17,
+                  fontSize: 14,
                   color: Colors[colorScheme ?? "light"].inputText,
                   fontFamily: "Poppins300",
                   paddingTop: 20,
                   paddingBottom: 10,
                   paddingLeft: 10,
                   paddingRight: 50,
-                  borderRadius: 5,
-                  // backgroundColor:
-                  //    Colors[colorScheme ?? "light"].inputContainer,
+                  borderRadius: 10,
+                  backgroundColor:
+                     Colors[colorScheme ?? "light"].inputContainer,
                   borderStyle: "solid",
                   borderWidth: 1,
                   borderColor: Colors[colorScheme ?? "light"].inputBorder,
@@ -104,19 +103,17 @@ export default function InputTextCustom({
                top: 10,
                left: 10,
                zIndex: 1,
-               // width: "100%",
                flexDirection: "row",
-               // backgroundColor: "green",
             }}
          >
             <Text
                style={[
                   {
-                     fontSize: 11,
-                     lineHeight: 13,
+                     fontSize: 10,
+                     lineHeight: 12,
                      textAlign: "left",
                      color: Colors[colorScheme ?? "light"].inputTitle,
-                     fontFamily: "Poppins500",
+                     fontFamily: "Poppins600",
                   },
                   focus && {
                      color: "#007bff",
@@ -129,8 +126,8 @@ export default function InputTextCustom({
                <Text
                   style={[
                      {
-                        fontSize: 11,
-                        lineHeight: 13,
+                        fontSize: 10,
+                        lineHeight: 12,
                         color: "#f44336",
                      },
                      focus && {

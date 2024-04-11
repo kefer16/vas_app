@@ -21,9 +21,9 @@ export default {
       footerButtonHover: "#8673FF",
       //input
       inputContainer: "rgba(255,255,255,1)",
-      inputBorder: "#424b57",
+      inputBorder: "rgba( 0, 0 , 0, 0.1)",
       input: "#fff",
-      inputTitle: "rgba(0, 0, 0, 1)",
+      inputTitle: "rgba(0, 0, 0, 0.5)",
       InputTextPlaceHolder: "rgba(0, 0, 0, 0.5)",
       inputText: "rgba(0, 0, 0, 1)",
 

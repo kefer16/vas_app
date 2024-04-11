@@ -3,7 +3,6 @@ import React from "react";
 import { useLocalSearchParams } from "expo-router";
 import ContainerCustom from "@/components/ContainerCustom";
 
-import TitleItem from "@/components/TitleItem";
 import Separator from "@/components/Separator";
 import ViewCardItem, {
    EnuViewCardItem,
@@ -12,6 +11,7 @@ import ViewCardItem, {
 import ViewIconItem from "@/components/ViewIconItem";
 import { Building2 } from "lucide-react-native";
 import ViewOptionsGroup from "@/components/ViewOptionsGroup";
+import ViewHeader from "@/components/view/TitleItem";
 
 const index = () => {
    const { id } = useLocalSearchParams<{ id: string }>();
@@ -72,7 +72,11 @@ const index = () => {
    ];
    return (
       <ContainerCustom>
-         <TitleItem styleContainer={{ paddingHorizontal: 10 }} title={nombre} />
+         <ViewHeader
+            styleContainer={{ paddingHorizontal: 10 }}
+            title={nombre}
+            hrefButtonEdit={`/(home)/inicio/company/edit/${id}`}
+         />
          <Separator />
          <View
             style={{

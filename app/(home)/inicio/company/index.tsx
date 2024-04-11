@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ContainerCustom from "@/components/ContainerCustom";
 import { View } from "@/components/Themed";
 import InputTextSearchCustom from "@/components/InputTextSearchCustom";
-import TitleList from "@/components/TitleList";
+import ListHeader from "@/components/list/ListHeader";
 import CompanySection from "@/components/CompanySection";
 import ButtonIcon from "@/components/ButtonIconText";
 import { Dimensions } from "react-native";
@@ -72,7 +72,7 @@ const index = () => {
                minHeight: ScreenHeight - BarHeight,
             }}
          >
-            <TitleList text="Compañia" />
+            <ListHeader text="Compañia" />
 
             <InputTextSearchCustom
                value={search}

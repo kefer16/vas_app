@@ -1,5 +1,5 @@
 import { Text, View, useColorScheme, Image } from "react-native";
-import InputTextCustom from "../components/InputTextCustom";
+import InputText from "../components/InputText";
 import { useState, useContext } from "react";
 import InputPasswordCustom from "../components/InputPasswordCustom";
 import ContainerCustom from "../components/ContainerCustom";
@@ -146,7 +146,7 @@ export default function LoginScreen() {
                gap: 10,
             }}
          >
-            <InputTextCustom
+            <InputText
                styleInput={{ textTransform: "lowercase" }}
                title="Usuario"
                placeholder="Ingrese usuario"

@@ -1,15 +1,15 @@
 import { View, Text, useColorScheme, StyleProp, ViewStyle } from "react-native";
 import React from "react";
-import ButtonIcon from "./ButtonRoundedIcon";
 import { router } from "expo-router";
-import { Edit2, Undo2 } from "lucide-react-native";
+import ButtonIcon from "./ButtonRoundedIcon";
+import { Check, Undo2 } from "lucide-react-native";
 import Colors from "@/constants/Colors";
 
 interface Props {
-   styleContainer?: StyleProp<ViewStyle>;
+   styeContainer?: StyleProp<ViewStyle>;
    title: string;
 }
-const TitleItem = ({ styleContainer, title }: Props) => {
+const EditHeader = ({ styeContainer, title }: Props) => {
    const colorScheme = useColorScheme();
    const btnReturn = () => {
       router.back();
@@ -23,8 +23,9 @@ const TitleItem = ({ styleContainer, title }: Props) => {
                flexDirection: "row",
                alignItems: "center",
                justifyContent: "space-between",
+               // backgroundColor: "red",
             },
-            styleContainer,
+            styeContainer,
          ]}
       >
          <ButtonIcon onPress={btnReturn} iconLucide={Undo2} />
@@ -41,9 +42,9 @@ const TitleItem = ({ styleContainer, title }: Props) => {
             {title}
          </Text>
 
-         <ButtonIcon onPress={btnReturn} iconLucide={Edit2} />
+         <ButtonIcon onPress={btnReturn} iconLucide={Check} />
       </View>
    );
 };
 
-export default TitleItem;
+export default EditHeader;

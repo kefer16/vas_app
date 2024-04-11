@@ -3,12 +3,12 @@ import React from "react";
 import Colors from "@/constants/Colors";
 import { EllipsisVertical, Undo2 } from "lucide-react-native";
 import { router } from "expo-router";
-import ButtonIcon from "./ButtonRoundedIcon";
+import ButtonIcon from "../ButtonRoundedIcon";
 interface Props {
    textStyle?: StyleProp<TextStyle>;
    text: string;
 }
-const TitleList = ({ textStyle, text }: Props) => {
+const ListHeader = ({ textStyle, text }: Props) => {
    const colorScheme = useColorScheme();
    const btnReturn = () => {
       router.back();
@@ -44,4 +44,4 @@ const TitleList = ({ textStyle, text }: Props) => {
    );
 };
 
-export default TitleList;
+export default ListHeader;

@@ -10,7 +10,7 @@ interface Props {
 }
 const CompanySection = ({ styleContainer, arrayCompanies }: Props) => {
    const onPress = (pid: string) => {
-      router.push(`/(home)/inicio/company/${pid}`);
+      router.push(`/(home)/inicio/company/view/${pid}`);
    };
    return (
       <View style={styleContainer}>
