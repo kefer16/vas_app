@@ -1,9 +1,27 @@
 import { View, Text } from "react-native";
-import React, { useState } from "react";
+import React, { Dispatch } from "react";
 import InputText from "@/components/InputText";
+interface Props {
+   form: FormProps;
+}
 
-const EditCompany = () => {
-   const [fecha, setFecha] = useState<string>("");
+export interface FormProps {
+   stateValue: string;
+   setFunctionValue: Dispatch<React.SetStateAction<string>>;
+}
+const EditCompany = ({ form }: Props) => {
+   // const [formCompany, setCompa] = useState<>
+
+   // const [date, setDate] = useState<string>("");
+   // const [user, setUser] = useState<string>("");
+   // const [active, setActive] = useState<string>("");
+
+   // const [shortName, setShortName] = useState<string>("");
+   // const [fullName, setFullName] = useState<string>("");
+   // const [description, setDescription] = useState<string>("");
+   // const [email, setEmail] = useState<string>("");
+   // const [page, setPage] = useState<string>("");
+
    return (
       <View
          style={{
@@ -24,20 +42,20 @@ const EditCompany = () => {
          <InputText
             title="Fecha"
             inputIsRequired
-            value={fecha}
-            functionChangeText={setFecha}
+            value={formValue.CreationDate}
+            functionChangeText={formSetFunction}
          />
          <InputText
             title="Usuario"
             inputIsRequired
-            value={fecha}
-            functionChangeText={setFecha}
+            value={user}
+            functionChangeText={setUser}
          />
          <InputText
             title="Activo"
             inputIsRequired
-            value={fecha}
-            functionChangeText={setFecha}
+            value={active}
+            functionChangeText={setActive}
          />
          <Text
             style={{
@@ -50,32 +68,32 @@ const EditCompany = () => {
          <InputText
             title="Nombre Corto"
             inputIsRequired
-            value={fecha}
-            functionChangeText={setFecha}
+            value={shortName}
+            functionChangeText={setShortName}
          />
          <InputText
             title="Nombre Completo"
             inputIsRequired
-            value={fecha}
-            functionChangeText={setFecha}
+            value={fullName}
+            functionChangeText={setFullName}
          />
          <InputText
             title="Descripción"
-            value={fecha}
-            functionChangeText={setFecha}
+            value={description}
+            functionChangeText={setDescription}
          />
          <InputText
             title="Correo"
             keyboardType="email-address"
             inputIsRequired
-            value={fecha}
-            functionChangeText={setFecha}
+            value={email}
+            functionChangeText={setEmail}
          />
          <InputText
             title="Página"
             keyboardType="url"
-            value={fecha}
-            functionChangeText={setFecha}
+            value={page}
+            functionChangeText={setPage}
          />
       </View>
    );

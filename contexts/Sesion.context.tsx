@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { ActivityIndicator, Alert, View } from "react-native";
-import { LogeoUsuario } from "@/interfaces/responses/usuario-res.interface";
+import { DtoLoginAccountRes } from "@/apis/account/dto/responses/login-account-res.dto";
+import { DtoCompanyRes } from "@/apis/companies/dto/responses/company.dto";
 // import {  ToastAndroid } from "react-native";
 
 export interface NotificacionProps {
@@ -8,13 +9,15 @@ export interface NotificacionProps {
    detalle: string;
 }
 export interface InsteneSesionContextProps {
-   vasSesion: LogeoUsuario;
+   vasSesion: DtoLoginAccountRes;
+   companySesion: DtoCompanyRes;
    privilegio: privilegio;
    obtenerSesion: () => void;
-   guardarSesion: (sesion: LogeoUsuario) => void;
+   guardarSesion: (sesion: DtoLoginAccountRes) => void;
    cerrarSesion: () => void;
    mostrarNotificacion: (prosp: NotificacionProps) => void;
    activarCarga: (estado: boolean) => void;
+   saveCompanySesion: (pCompany: DtoCompanyRes) => void;
 }
 
 export const VasSesionContext = createContext<InsteneSesionContextProps>(
@@ -24,9 +27,18 @@ export type privilegio = "ADM" | "USU" | "INV";
 
 export const SesionProvider = ({ children }: any) => {
    const [privilegio, setPrivilegio] = useState<privilegio>("INV");
-   const [vasSesion, setVasSesion] = useState<LogeoUsuario>({} as LogeoUsuario);
+   const [vasSesion, setVasSesion] = useState<DtoLoginAccountRes>(
+      {} as DtoLoginAccountRes
+   );
 
    const [carga, setCarga] = useState<boolean>(false);
+   const [companySesion, setCompanySesion] = useState<DtoCompanyRes>(
+      new DtoCompanyRes()
+   );
+
+   const saveCompanySesion = async (pCompany: DtoCompanyRes) => {
+      setCompanySesion(pCompany);
+   };
 
    const activarCarga = (estado: boolean) => {
       setCarga(estado);
@@ -45,21 +57,16 @@ export const SesionProvider = ({ children }: any) => {
       }
    };
 
-   const guardarSesion = async (sesion: LogeoUsuario) => {
+   const guardarSesion = async (sesion: DtoLoginAccountRes) => {
       sesion = {
-         usuario_id: sesion.usuario_id,
-         usuario: sesion.usuario,
-         correo: sesion.correo,
-         nombre: sesion.nombre,
-         apellido: sesion.apellido,
-         direccion: sesion.direccion,
-         telefono: sesion.telefono,
-         foto: "",
-         cls_privilegio: {
-            privilegio_id: sesion.cls_privilegio.privilegio_id,
-            tipo: sesion.cls_privilegio.tipo,
-            abreviatura: sesion.cls_privilegio.abreviatura,
-         },
+         UserId: sesion.UserId,
+         FirstName: sesion.FirstName,
+         SecondName: sesion.SecondName,
+         FirstLastName: sesion.FirstLastName,
+         SecondLastName: sesion.SecondLastName,
+         UserName: sesion.UserName,
+         Email: sesion.Email,
+         Photo: sesion.Photo,
       };
 
       // if (Platform.OS === "web") {
@@ -81,22 +88,7 @@ export const SesionProvider = ({ children }: any) => {
       //    SecureStore.deleteItemAsync("sesion_vas");
       // }
 
-      setVasSesion({
-         usuario_id: "",
-         usuario: "",
-         correo: "",
-         nombre: "",
-         apellido: "",
-         direccion: "",
-         telefono: "",
-         foto: "",
-         cls_privilegio: {
-            privilegio_id: "",
-            tipo: "",
-            abreviatura: "INV",
-         },
-      });
-      setPrivilegio("INV");
+      setVasSesion(new DtoLoginAccountRes());
    };
 
    const mostrarNotificacion = ({ tipo, detalle }: NotificacionProps) => {
@@ -135,12 +127,14 @@ export const SesionProvider = ({ children }: any) => {
       <VasSesionContext.Provider
          value={{
             vasSesion,
+            companySesion,
             privilegio,
             obtenerSesion,
             guardarSesion,
             cerrarSesion,
             mostrarNotificacion,
             activarCarga,
+            saveCompanySesion,
          }}
       >
          {children}

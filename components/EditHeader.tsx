@@ -8,8 +8,9 @@ import Colors from "@/constants/Colors";
 interface Props {
    styeContainer?: StyleProp<ViewStyle>;
    title: string;
+   functionBtnCheck: () => void;
 }
-const EditHeader = ({ styeContainer, title }: Props) => {
+const EditHeader = ({ styeContainer, title, functionBtnCheck }: Props) => {
    const colorScheme = useColorScheme();
    const btnReturn = () => {
       router.back();
@@ -42,7 +43,7 @@ const EditHeader = ({ styeContainer, title }: Props) => {
             {title}
          </Text>
 
-         <ButtonIcon onPress={btnReturn} iconLucide={Check} />
+         <ButtonIcon onPress={functionBtnCheck} iconLucide={Check} />
       </View>
    );
 };

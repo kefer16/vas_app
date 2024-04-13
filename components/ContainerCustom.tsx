@@ -1,4 +1,4 @@
-import { ScrollView, View, useColorScheme } from "react-native";
+import { View, useColorScheme } from "react-native";
 import Colors from "../constants/Colors";
 import BarHeightCustom from "./BarHeightCustom";
 
@@ -15,7 +15,8 @@ const ContainerCustom = (props: any) => {
          ]}
       >
          <BarHeightCustom />
-         <ScrollView style={{ flex: 1 }}>{props.children}</ScrollView>
+         {/* <ScrollView style={{ flex: 1 }}>{props.children}</ScrollView> */}
+         {props.children}
       </View>
    );
 };

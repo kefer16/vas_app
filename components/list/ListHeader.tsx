@@ -5,24 +5,28 @@ import { EllipsisVertical, Undo2 } from "lucide-react-native";
 import { router } from "expo-router";
 import ButtonIcon from "../ButtonRoundedIcon";
 interface Props {
-   textStyle?: StyleProp<TextStyle>;
+   containerStyle?: StyleProp<TextStyle>;
    text: string;
 }
-const ListHeader = ({ textStyle, text }: Props) => {
+const ListHeader = ({ containerStyle, text }: Props) => {
    const colorScheme = useColorScheme();
    const btnReturn = () => {
       router.back();
    };
    return (
       <View
-         style={{
-            display: "flex",
-            height: 50,
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            // backgroundColor: "red",
-         }}
+         style={[
+            {
+               display: "flex",
+               height: 50,
+               flexDirection: "row",
+               alignItems: "center",
+               justifyContent: "space-between",
+               // backgroundColor: "red",
+            },
+
+            containerStyle,
+         ]}
       >
          <ButtonIcon onPress={btnReturn} iconLucide={Undo2} />
          <Text
@@ -33,7 +37,6 @@ const ListHeader = ({ textStyle, text }: Props) => {
                   color: Colors[colorScheme ?? "light"].buttonIconColor,
                   fontFamily: "Poppins700",
                },
-               textStyle,
             ]}
          >
             {text}

@@ -2,13 +2,13 @@ import { AccountApi } from "./account.api";
 import { ActiveAccountReqDto } from "./dto/requests/active-account-req.dto";
 import { CreateAccountReqDto } from "./dto/requests/create-account-req.dto";
 import { LoginAccountReqDto } from "./dto/requests/login-account-req.dto";
-import { LoginAccountResDto } from "./dto/responses/login-account-res.dto";
+import { DtoLoginAccountRes } from "./dto/responses/login-account-res.dto";
 
 export class AccountService {
    private apiAccount: AccountApi = new AccountApi();
    private rspActiveAccount: boolean = false;
    private rspCreateAccount: boolean = false;
-   private rspLoginAccount: LoginAccountResDto = {} as LoginAccountResDto;
+   private rspLoginAccount: DtoLoginAccountRes = {} as DtoLoginAccountRes;
 
    async create(pBody: CreateAccountReqDto): Promise<boolean> {
       await this.apiAccount.create(pBody).then((resp) => {
@@ -24,7 +24,7 @@ export class AccountService {
       return this.rspActiveAccount;
    }
 
-   async login(pBody: LoginAccountReqDto): Promise<LoginAccountResDto> {
+   async login(pBody: LoginAccountReqDto): Promise<DtoLoginAccountRes> {
       await this.apiAccount.login(pBody).then((resp) => {
          this.rspLoginAccount = resp.data.Data;
       });

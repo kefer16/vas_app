@@ -1,12 +1,12 @@
 import { StyleProp, View, ViewStyle } from "react-native";
 import React from "react";
 import CompanyOption from "./CompanyOption";
-import { CompanyRes } from "@/interfaces/responses/company-res.interface";
 import { router } from "expo-router";
+import { DtoCompanyRes } from "@/apis/companies/dto/responses/company.dto";
 
 interface Props {
    styleContainer?: StyleProp<ViewStyle>;
-   arrayCompanies: CompanyRes[];
+   arrayCompanies: DtoCompanyRes[];
 }
 const CompanySection = ({ styleContainer, arrayCompanies }: Props) => {
    const onPress = (pid: string) => {
@@ -14,12 +14,12 @@ const CompanySection = ({ styleContainer, arrayCompanies }: Props) => {
    };
    return (
       <View style={styleContainer}>
-         {arrayCompanies.map((item: CompanyRes) => {
+         {arrayCompanies.map((item: DtoCompanyRes) => {
             return (
                <CompanyOption
                   key={item.CompanyId}
-                  textTitle={item.Name}
-                  textDescription={item.Name}
+                  textTitle={item.ShortName}
+                  textDescription={item.Description}
                   onPress={() => onPress(item.CompanyId)}
                />
             );

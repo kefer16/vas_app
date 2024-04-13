@@ -9,9 +9,10 @@ import {
 
 interface Props {
    styleContainer?: StyleProp<ViewStyle>;
+   functionMoreBtn: () => void;
 }
 
-const ViewOptionsGroup = ({ styleContainer }: Props) => {
+const ViewOptionsGroup = ({ styleContainer, functionMoreBtn }: Props) => {
    return (
       <View
          style={[
@@ -36,7 +37,7 @@ const ViewOptionsGroup = ({ styleContainer }: Props) => {
             iconLucide={UserRoundPlus}
          />
          <ButtonSquareIconText
-            onPress={() => {}}
+            onPress={functionMoreBtn}
             description="Más"
             iconLucide={EllipsisVertical}
          />

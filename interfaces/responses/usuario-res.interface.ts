@@ -1,6 +1,6 @@
 export type privilegio = "ADM" | "USU" | "INV";
 
-export interface LogeoUsuario {
+export interface DtoLoginUsuario {
    usuario_id: string;
    nombre: string;
    apellido: string;

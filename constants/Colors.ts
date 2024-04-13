@@ -1,6 +1,6 @@
 export default {
    light: {
-      container: "#rgba(255,255,255,0.4)",
+      container: "#rgba(255,255,255,0.3)",
       iconPrimary: "#BFA3F9",
       iconSecondary: "#6f6f6f",
       containerHeader: "#8673FF",

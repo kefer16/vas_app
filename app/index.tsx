@@ -10,10 +10,11 @@ import { Link, router } from "expo-router";
 import CheckBoxCustom from "@/components/CheckBoxCustom";
 import { AccountService } from "@/apis/account/account.service";
 import { LoginAccountReqDto } from "@/apis/account/dto/requests/login-account-req.dto";
-import { LoginAccountResDto } from "@/apis/account/dto/responses/login-account-res.dto";
+import { DtoLoginAccountRes } from "@/apis/account/dto/responses/login-account-res.dto";
 
 export default function LoginScreen() {
-   const { mostrarNotificacion, activarCarga } = useContext(VasSesionContext);
+   const { mostrarNotificacion, activarCarga, guardarSesion } =
+      useContext(VasSesionContext);
 
    const colorScheme = useColorScheme();
 
@@ -47,13 +48,13 @@ export default function LoginScreen() {
 
       await srvAccount
          .login(data)
-         .then((resp: LoginAccountResDto) => {
+         .then((resp: DtoLoginAccountRes) => {
             mostrarNotificacion({
                tipo: "success",
                detalle: `Hola Bienvenido ${resp.UserName}`,
             });
 
-            // guardarSesion(resp);
+            guardarSesion(resp);
             router.replace("/(home)/inicio/");
          })
          .catch((error: Error) => {

@@ -16,7 +16,7 @@ interface Props {
    styleButton?: StyleProp<ViewStyle>;
    isEnabled?: boolean;
 }
-const ButtonIcon = ({
+const ButtonIconText = ({
    styleButton,
    text,
    onPress,
@@ -68,4 +68,4 @@ const ButtonIcon = ({
    );
 };
 
-export default ButtonIcon;
+export default ButtonIconText;

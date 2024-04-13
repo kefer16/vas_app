@@ -4,11 +4,14 @@ import {
    useColorScheme,
    TextInput,
    TouchableOpacity,
+   ViewStyle,
+   StyleProp,
 } from "react-native";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import Colors from "../constants/Colors";
 import { Search } from "lucide-react-native";
 interface Props {
+   containerStyle?: StyleProp<ViewStyle>;
    placeholder: string;
    value: string;
    keyboardType: KeyboardTypeOptions;
@@ -19,6 +22,7 @@ interface Props {
    inputIsEditable?: boolean;
 }
 const InputTextSearchCustom = ({
+   containerStyle,
    placeholder,
    value,
    functionChangeText,
@@ -38,11 +42,14 @@ const InputTextSearchCustom = ({
 
    return (
       <View
-         style={{
-            display: "flex",
-            alignItems: "center",
-            // backgroundColor: "red",
-         }}
+         style={[
+            {
+               display: "flex",
+               alignItems: "center",
+               // backgroundColor: "red",
+            },
+            containerStyle,
+         ]}
       >
          <TextInput
             autoComplete="off"

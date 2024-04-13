@@ -10,6 +10,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { SesionProvider } from "@/contexts/Sesion.context";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export {
    // Catch any errors thrown by the Layout component.
@@ -59,16 +60,27 @@ function RootLayoutNav() {
 
    return (
       <SesionProvider>
-         <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-         >
-            <Stack>
-               <Stack.Screen name="index" options={{ headerShown: false }} />
-               <Stack.Screen name="create" options={{ headerShown: false }} />
-               <Stack.Screen name="activate" options={{ headerShown: false }} />
-               <Stack.Screen name="(home)" options={{ headerShown: false }} />
-            </Stack>
-         </ThemeProvider>
+         <GestureHandlerRootView style={{ flex: 1 }}>
+            <ThemeProvider
+               value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+            >
+               <Stack>
+                  <Stack.Screen name="index" options={{ headerShown: false }} />
+                  <Stack.Screen
+                     name="create"
+                     options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                     name="activate"
+                     options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                     name="(home)"
+                     options={{ headerShown: false }}
+                  />
+               </Stack>
+            </ThemeProvider>
+         </GestureHandlerRootView>
       </SesionProvider>
    );
 }
