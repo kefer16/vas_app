@@ -14,22 +14,32 @@ import ButtonAddList from "@/components/list/ButtonAddList";
 import { router } from "expo-router";
 
 const index = () => {
-   const { mostrarNotificacion, activarCarga } = useContext(VasSesionContext);
+   const {
+      mostrarNotificacion,
+      activarCarga,
+      companiesSesion,
+      saveCompaniesSesion,
+   } = useContext(VasSesionContext);
    const ScreenHeight = Dimensions.get("window").height;
    const BarHeight = 70;
    const [search, setSearch] = useState<string>("");
-   const [arrayCompany, setArrayCompany] = useState<DtoCompanyRes[]>([]);
+   // const [arrayCompany, setArrayCompany] = useState<DtoCompanyRes[]>([]);
    const [arrayFilterCompany, setArrayFilterCompany] = useState<
       DtoCompanyRes[]
    >([]);
 
    const getCompanyService = async () => {
+      if (companiesSesion.length > 0) {
+         setArrayFilterCompany(companiesSesion);
+         return;
+      }
       const srvCompany = new CompanyService();
       activarCarga(true);
       await srvCompany
          .getAll()
          .then((resp) => {
-            setArrayCompany(resp);
+            // setArrayCompany(resp);
+            saveCompaniesSesion(resp);
             setArrayFilterCompany(resp);
          })
          .catch((error) => {
@@ -39,7 +49,7 @@ const index = () => {
    };
    const btnBuscar = (pValueSearch: string) => {
       setArrayFilterCompany(
-         arrayCompany.filter((item) =>
+         companiesSesion.filter((item) =>
             item.ShortName.trim()
                .toLowerCase()
                .includes(pValueSearch.trim().toLowerCase())
@@ -53,7 +63,7 @@ const index = () => {
 
    useEffect(() => {
       loadView();
-   }, []);
+   }, [companiesSesion]);
 
    const goAddCompany = () => {
       router.push("/(home)/inicio/company/edit/-");

@@ -64,7 +64,9 @@ const CompanyOption = ({
                   color: Colors[colorScheme ?? "light"].textSubtitle,
                }}
             >
-               {textDescription}
+               {textDescription.length >= 40
+                  ? `${textDescription.substring(0, 40)} ...`
+                  : textDescription}
             </Text>
          </View>
 

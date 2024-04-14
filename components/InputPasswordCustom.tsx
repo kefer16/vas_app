@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Colors from "../constants/Colors";
+import { Eye, EyeOff } from "lucide-react-native";
 
 interface Props {
    title: string;
@@ -61,9 +62,9 @@ export default function InputPasswordCustom({
                   paddingBottom: 10,
                   paddingLeft: 10,
                   paddingRight: 50,
-                  borderRadius: 5,
-                  // backgroundColor:
-                  //    Colors[colorScheme ?? "light"].inputContainer,
+                  borderRadius: 10,
+                  backgroundColor:
+                     Colors[colorScheme ?? "light"].inputContainer,
                   borderStyle: "solid",
                   borderWidth: 1,
                   borderColor: Colors[colorScheme ?? "light"].inputBorder,
@@ -144,11 +145,19 @@ export default function InputPasswordCustom({
             }}
             onPress={functionActivePassword}
          >
-            <Ionicons
-               style={{ color: Colors[colorScheme ?? "light"].inputTitle }}
-               name={activePassword ? "eye-outline" : "eye-off-outline"}
-               size={20}
-            />
+            {activePassword ? (
+               <Eye
+                  size={20}
+                  color={Colors[colorScheme ?? "light"].inputTitle}
+                  strokeWidth={2}
+               />
+            ) : (
+               <EyeOff
+                  size={20}
+                  color={Colors[colorScheme ?? "light"].inputTitle}
+                  strokeWidth={2}
+               />
+            )}
          </TouchableOpacity>
       </View>
    );

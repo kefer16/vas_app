@@ -1,4 +1,4 @@
-import { Text, View, useColorScheme, Image } from "react-native";
+import { Text, View, useColorScheme, Image, ScrollView } from "react-native";
 import InputText from "../components/InputText";
 import { useState, useContext } from "react";
 import InputPasswordCustom from "../components/InputPasswordCustom";
@@ -11,6 +11,7 @@ import CheckBoxCustom from "@/components/CheckBoxCustom";
 import { AccountService } from "@/apis/account/account.service";
 import { LoginAccountReqDto } from "@/apis/account/dto/requests/login-account-req.dto";
 import { DtoLoginAccountRes } from "@/apis/account/dto/responses/login-account-res.dto";
+import WaveSvg from "@/components/svg/WaveSvg";
 
 export default function LoginScreen() {
    const { mostrarNotificacion, activarCarga, guardarSesion } =
@@ -49,11 +50,6 @@ export default function LoginScreen() {
       await srvAccount
          .login(data)
          .then((resp: DtoLoginAccountRes) => {
-            mostrarNotificacion({
-               tipo: "success",
-               detalle: `Hola Bienvenido ${resp.UserName}`,
-            });
-
             guardarSesion(resp);
             router.replace("/(home)/inicio/");
          })
@@ -65,170 +61,188 @@ export default function LoginScreen() {
 
    return (
       <ContainerCustom>
-         <View
+         <ScrollView
+            showsVerticalScrollIndicator={false}
             style={{
                flex: 1,
-               position: "relative",
-               // marginTop: Constants.statusBarHeight,
-               justifyContent: "center",
-               alignItems: "center",
-               marginHorizontal: "auto",
-               width: "100%",
-               height: 300,
-               alignSelf: "center",
             }}
          >
-            <Image
-               style={{
-                  width: "100%",
-                  height: 300,
-               }}
-               blurRadius={4}
-               source={require("../public/images/gestion.jpg")}
-            />
-
             <View
                style={{
-                  position: "absolute",
-                  display: "flex",
-                  top: 60,
+                  flex: 1,
+                  position: "relative",
+                  // marginTop: Constants.statusBarHeight,
+                  justifyContent: "center",
                   alignItems: "center",
+                  marginHorizontal: "auto",
                   width: "100%",
+                  height: 300,
+                  alignSelf: "center",
                }}
             >
                <Image
                   style={{
-                     width: 70,
-                     height: 70,
+                     width: "100%",
+                     height: 300,
                   }}
-                  source={require("../public/images/favicon-vas.png")}
+                  blurRadius={4}
+                  source={require("../public/images/gestion.jpg")}
+               />
+
+               <View
+                  style={{
+                     position: "absolute",
+                     display: "flex",
+                     top: 60,
+                     alignItems: "center",
+                     width: "100%",
+                  }}
+               >
+                  <Image
+                     style={{
+                        width: 70,
+                        height: 70,
+                     }}
+                     source={require("../public/images/favicon-vas.png")}
+                  />
+               </View>
+
+               {/* <Image
+                  style={{
+                     position: "absolute",
+                     width: "100%",
+                     bottom: 0,
+                  }}
+                  source={require("../public/images/vector.png")}
+               /> */}
+
+               <WaveSvg
+                  styleContainer={{
+                     flex: 1,
+                     position: "absolute",
+                     width: "100%",
+                     bottom: 0,
+                     // backgroundColor: "red",
+                  }}
+                  height={100}
                />
             </View>
 
-            <Image
+            <Text
                style={{
-                  position: "absolute",
-                  width: "100%",
-                  bottom: 0,
+                  fontSize: 30,
+                  lineHeight: 36,
+                  color: Colors[colorScheme ?? "light"].textTitle,
+                  textAlign: "center",
+                  fontFamily: "Poppins600",
                }}
-               source={require("../public/images/vector.png")}
-            />
-         </View>
-
-         <Text
-            style={{
-               fontSize: 30,
-               lineHeight: 36,
-               color: Colors[colorScheme ?? "light"].textTitle,
-               textAlign: "center",
-               fontFamily: "Poppins600",
-            }}
-         >
-            Bienvenido a Vas
-         </Text>
-         <Text
-            style={{
-               fontSize: 14,
-               lineHeight: 18,
-               color: Colors[colorScheme ?? "light"].textSubtitle,
-               textAlign: "center",
-               fontFamily: "Poppins400",
-               marginBottom: 30,
-            }}
-         >
-            tu app de gestión de proyectos
-         </Text>
-
-         <View
-            style={{
-               flex: 1,
-               flexDirection: "column",
-               paddingHorizontal: 20,
-               gap: 10,
-            }}
-         >
-            <InputText
-               styleInput={{ textTransform: "lowercase" }}
-               title="Usuario"
-               placeholder="Ingrese usuario"
-               value={usuario}
-               functionChangeText={setUsuario}
-               keyboardType="default"
-               maxLength={15}
-            />
-
-            <InputPasswordCustom
-               title="Contraseña"
-               placeholder="Ingrese contraseña"
-               value={contrasenia}
-               functionChangeText={setContrasenia}
-               activePassword={esconderContrasenia}
-               functionActivePassword={() =>
-                  setEsconderContrasenia(!esconderContrasenia)
-               }
-            />
+            >
+               Bienvenido a Vas
+            </Text>
+            <Text
+               style={{
+                  fontSize: 14,
+                  lineHeight: 18,
+                  color: Colors[colorScheme ?? "light"].textSubtitle,
+                  textAlign: "center",
+                  fontFamily: "Poppins400",
+                  marginBottom: 30,
+               }}
+            >
+               tu app de gestión de proyectos
+            </Text>
 
             <View
                style={{
-                  width: "100%",
-                  height: 20,
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
+                  flex: 1,
+                  flexDirection: "column",
+                  paddingHorizontal: 20,
+                  gap: 10,
                }}
             >
-               <CheckBoxCustom
-                  label="Recuérdame"
-                  value={IsRemenber}
-                  setValue={setIsRemenber}
+               <InputText
+                  styleInput={{ textTransform: "lowercase" }}
+                  title="Usuario"
+                  placeholder="Ingrese usuario"
+                  value={usuario}
+                  functionChangeText={setUsuario}
+                  keyboardType="default"
+                  maxLength={15}
                />
-               <Text
-                  style={{
-                     width: "50%",
-                     textAlign: "right",
-                     color: Colors[colorScheme ?? "light"].textLink,
-                     fontSize: 12,
-                     fontFamily: "Poppins400",
-                     textDecorationLine: "underline",
-                  }}
-               >
-                  Has olvidado tu contraseña?
-               </Text>
-            </View>
 
-            <ButtonCustom text="Iniciar Sesión" onPress={funLoginAccount} />
+               <InputPasswordCustom
+                  title="Contraseña"
+                  placeholder="Ingrese contraseña"
+                  value={contrasenia}
+                  functionChangeText={setContrasenia}
+                  activePassword={esconderContrasenia}
+                  functionActivePassword={() =>
+                     setEsconderContrasenia(!esconderContrasenia)
+                  }
+               />
 
-            <View
-               style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  marginTop: 20,
-               }}
-            >
-               <Text
+               <View
                   style={{
-                     color: Colors[colorScheme ?? "light"].text,
-                     fontSize: 12,
-                     fontFamily: "Poppins400",
+                     width: "100%",
+                     height: 20,
+                     display: "flex",
+                     flexDirection: "row",
+                     alignItems: "center",
                   }}
                >
-                  Aún no tienes cuenta?
-               </Text>
-               <Link
-                  href="/create"
+                  <CheckBoxCustom
+                     label="Recuérdame"
+                     value={IsRemenber}
+                     setValue={setIsRemenber}
+                  />
+                  <Text
+                     style={{
+                        width: "50%",
+                        textAlign: "right",
+                        color: Colors[colorScheme ?? "light"].textLink,
+                        fontSize: 12,
+                        fontFamily: "Poppins400",
+                        textDecorationLine: "underline",
+                     }}
+                  >
+                     Has olvidado tu contraseña?
+                  </Text>
+               </View>
+
+               <ButtonCustom text="Iniciar Sesión" onPress={funLoginAccount} />
+
+               <View
                   style={{
-                     color: Colors[colorScheme ?? "light"].textLink,
-                     fontSize: 12,
-                     marginLeft: 10,
-                     fontFamily: "Poppins400",
-                     textDecorationLine: "underline",
+                     display: "flex",
+                     flexDirection: "row",
+                     justifyContent: "center",
+                     marginTop: 20,
                   }}
                >
-                  <Text>Regístrate</Text>
-               </Link>
+                  <Text
+                     style={{
+                        color: Colors[colorScheme ?? "light"].text,
+                        fontSize: 12,
+                        fontFamily: "Poppins400",
+                     }}
+                  >
+                     Aún no tienes cuenta?
+                  </Text>
+                  <Link
+                     href="/create"
+                     style={{
+                        color: Colors[colorScheme ?? "light"].textLink,
+                        fontSize: 12,
+                        marginLeft: 10,
+                        fontFamily: "Poppins400",
+                        textDecorationLine: "underline",
+                     }}
+                  >
+                     <Text>Regístrate</Text>
+                  </Link>
+               </View>
             </View>
-         </View>
+         </ScrollView>
       </ContainerCustom>
    );
 }

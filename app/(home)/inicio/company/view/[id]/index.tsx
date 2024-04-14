@@ -28,8 +28,12 @@ import BottomSheet, {
 import OptionBottomSheet from "@/components/OptionBottomSheet";
 
 const index = () => {
-   const { mostrarNotificacion, activarCarga, saveCompanySesion } =
-      useContext(VasSesionContext);
+   const {
+      mostrarNotificacion,
+      activarCarga,
+      companiesSesion,
+      saveCompaniesSesion,
+   } = useContext(VasSesionContext);
    const { id } = useLocalSearchParams<{ id: string }>();
    const [companyData, setCompanyData] = useState<DtoCompanyRes>(
       new DtoCompanyRes()
@@ -38,20 +42,29 @@ const index = () => {
    const [viewCardData, setViewCardData] = useState<ItfViewCardItem[]>([]);
 
    const getCompanyService = async () => {
-      const srvCompany = new CompanyService();
-      activarCarga(true);
-      await srvCompany
-         .get(id)
-         .then((resp) => {
-            setCompanyData(resp);
-            saveCompanySesion(resp);
-            asignViewCardSystem(resp);
-            asignViewCardData(resp);
-         })
-         .catch((error) => {
-            mostrarNotificacion({ tipo: "error", detalle: error.message });
-         });
-      activarCarga(false);
+      console.log("view list", companiesSesion);
+      const companyItem =
+         companiesSesion.find((item) => item.CompanyId === id) ??
+         new DtoCompanyRes();
+      console.log("view item", companyItem);
+
+      setCompanyData(companyItem);
+      asignViewCardSystem(companyItem);
+      asignViewCardData(companyItem);
+      // const srvCompany = new CompanyService();
+      // activarCarga(true);
+      // await srvCompany
+      //    .get(id)
+      //    .then((resp) => {
+      //       setCompanyData(resp);
+      //       saveCompanySesion(resp);
+      //       asignViewCardSystem(resp);
+      //       asignViewCardData(resp);
+      //    })
+      //    .catch((error) => {
+      //       mostrarNotificacion({ tipo: "error", detalle: error.message });
+      //    });
+      // activarCarga(false);
    };
 
    const deleteCompanyService = async () => {
@@ -60,6 +73,10 @@ const index = () => {
       await srvCompany
          .delete(id)
          .then((resp) => {
+            const companies = companiesSesion.filter(
+               (item) => item.CompanyId !== id
+            );
+            saveCompaniesSesion([...companies]);
             router.navigate("/(home)/inicio/company/");
          })
          .catch((error) => {
@@ -133,7 +150,7 @@ const index = () => {
 
    useEffect(() => {
       loadView();
-   }, []);
+   }, [companiesSesion]);
 
    const sheetRef = useRef<BottomSheet>(null);
    // const handleClosePress = () => sheetRef.current?.close();
@@ -155,7 +172,7 @@ const index = () => {
       <ContainerCustom>
          <ViewHeader
             styleContainer={{ paddingHorizontal: 10 }}
-            title={companyData.ShortName}
+            title="Visualizar Compañia"
             hrefButtonEdit={`/(home)/inicio/company/edit/${id}`}
          />
          <Separator />
@@ -190,10 +207,17 @@ const index = () => {
             enablePanDownToClose
             backdropComponent={renderBackground}
          >
-            <BottomSheetView
-               style={{ flex: 1, flexDirection: "column", gap: 10 }}
-            >
-               <Text>Opciones</Text>
+            <BottomSheetView style={{ flex: 1, flexDirection: "column" }}>
+               <Text
+                  style={{
+                     fontSize: 20,
+                     fontFamily: "Poppins600",
+                     paddingHorizontal: 10,
+                  }}
+               >
+                  Opciones
+               </Text>
+               <Separator />
                <OptionBottomSheet onPress={deleteCompanyService} />
             </BottomSheetView>
          </BottomSheet>

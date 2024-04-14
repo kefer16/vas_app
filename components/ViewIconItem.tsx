@@ -32,6 +32,7 @@ const ViewIconItem = ({ styleContainer, title, iconLucide }: Props) => {
                   fontSize: 20,
                   lineHeight: 22,
                   fontFamily: "Poppins600",
+                  color: Colors[colorScheme ?? "light"].text,
                }}
             >
                {title}

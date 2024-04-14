@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import ContainerCustom from "@/components/ContainerCustom";
 import EditHeader from "@/components/EditHeader";
 import Separator from "@/components/Separator";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View, useColorScheme } from "react-native";
 import { VasSesionContext } from "@/contexts/Sesion.context";
 import { router, useLocalSearchParams } from "expo-router";
 import { CompanyService } from "@/apis/companies/company.service";
@@ -11,14 +11,17 @@ import { DtoUpdateCompany } from "@/apis/companies/dto/requests/update-company.d
 import { currentDateISO } from "@/utils/functions";
 import { DtoLoginAccountRes } from "@/apis/account/dto/responses/login-account-res.dto";
 import { DtoCreateCompany } from "@/apis/companies/dto/requests/create-company.dto";
+import Colors from "@/constants/Colors";
+import { DtoCompanyRes } from "@/apis/companies/dto/responses/company.dto";
 
 const edit = () => {
+   const colorScheme = useColorScheme();
    const {
       mostrarNotificacion,
       activarCarga,
       vasSesion,
-      companySesion,
-      saveCompanySesion,
+      companiesSesion,
+      saveCompaniesSesion,
    } = useContext(VasSesionContext);
    const { id } = useLocalSearchParams<{ id: string }>();
 
@@ -48,7 +51,9 @@ const edit = () => {
       await srvCompany
          .create(data)
          .then((resp) => {
-            saveCompanySesion(resp);
+            const companies = companiesSesion;
+            companies.push(resp);
+            saveCompaniesSesion([...companies]);
             router.navigate(`/(home)/inicio/company/view/${resp.CompanyId}`);
          })
          .catch((error) => {
@@ -71,7 +76,11 @@ const edit = () => {
       await srvCompany
          .update(id, data)
          .then((resp) => {
-            saveCompanySesion(resp);
+            const companies = companiesSesion.filter(
+               (item) => item.CompanyId !== id
+            );
+            companies.push(resp);
+            saveCompaniesSesion([...companies]);
             router.navigate(`/(home)/inicio/company/view/${id}`);
          })
          .catch((error) => {
@@ -81,15 +90,18 @@ const edit = () => {
    };
 
    const getCompanyService = () => {
-      if (companySesion.CompanyId === id) {
-         setDate(companySesion.CreationDate.toString());
-         setUserName(companySesion.DtoUser.UserName.toString());
-         setActive(companySesion.IsActive ? "Active" : "Inactivo");
-         setShortName(companySesion.ShortName);
-         setFullName(companySesion.FullName);
-         setDescription(companySesion.Description);
-         setEmail(companySesion.Email);
-         setPage(companySesion.Page);
+      const company =
+         companiesSesion.find((item) => item.CompanyId === id) ??
+         new DtoCompanyRes();
+      if (company.CompanyId === id) {
+         setDate(company.CreationDate);
+         setUserName(company.DtoUser.UserName);
+         setActive(company.IsActive ? "Active" : "Inactivo");
+         setShortName(company.ShortName);
+         setFullName(company.FullName);
+         setDescription(company.Description);
+         setEmail(company.Email);
+         setPage(company.Page);
       }
    };
 
@@ -142,6 +154,7 @@ const edit = () => {
                   style={{
                      fontFamily: "Poppins700",
                      fontSize: 15,
+                     color: Colors[colorScheme ?? "light"].text,
                   }}
                >
                   Datos Sistema
@@ -168,6 +181,7 @@ const edit = () => {
                   style={{
                      fontFamily: "Poppins700",
                      fontSize: 15,
+                     color: Colors[colorScheme ?? "light"].text,
                   }}
                >
                   Datos Principales

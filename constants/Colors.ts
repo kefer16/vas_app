@@ -1,5 +1,6 @@
 export default {
    light: {
+      svgContainer: "#F6F6F6",
       container: "#rgba(255,255,255,0.3)",
       iconPrimary: "#BFA3F9",
       iconSecondary: "#6f6f6f",
@@ -41,6 +42,7 @@ export default {
       viewCardSubTitle: "rgba(0, 0, 0, 1)",
    },
    dark: {
+      svgContainer: "#191923",
       container: "#191923",
       iconPrimary: "#BFA3F9",
       iconSecondary: "#6f6f6f",

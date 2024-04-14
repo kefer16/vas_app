@@ -16,7 +16,7 @@ const OptionBottomSheet = ({ styleContainer, onPress }: Props) => {
          style={[
             {
                display: "flex",
-               height: 40,
+               height: 50,
                flexDirection: "row",
                paddingHorizontal: 10,
                // justifyContent: "center",

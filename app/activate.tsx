@@ -1,4 +1,4 @@
-import { View, Text, useColorScheme } from "react-native";
+import { View, Text, useColorScheme, ScrollView } from "react-native";
 import React, { useContext, useState } from "react";
 import { VasSesionContext } from "@/contexts/Sesion.context";
 import ContainerCustom from "@/components/ContainerCustom";
@@ -43,94 +43,104 @@ const Activate = () => {
       <ContainerCustom>
          <HeaderCustom title="Registro" isSecondaryPage={true} />
 
-         <View
+         <ScrollView
+            showsVerticalScrollIndicator={false}
             style={{
                flex: 1,
-               padding: 10,
-               backgroundColor: Colors[colorScheme ?? "light"].container,
             }}
          >
-            <TitleIconCustom
-               style={{ marginBottom: 20 }}
-               iconName="mail"
-               text="Código de validación de Correo"
-            />
-            <TextDescriptionCustom
-               style={{ marginBottom: 20 }}
-               align="justify"
-               text="Hemos enviado un código de activación a tu correo electrónico, revisa tu bandeja de entrada o Correos no deseados"
-            />
-
-            <InputCodeCustom
-               style={{ marginBottom: 20 }}
-               valueChange={setCode}
-            />
             <View
                style={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "flex-end",
+                  flex: 1,
+                  padding: 10,
+                  backgroundColor: Colors[colorScheme ?? "light"].container,
                }}
             >
-               <Text
-                  style={{
-                     color: Colors[colorScheme ?? "light"].text,
-                     fontSize: 12,
-                     marginLeft: 10,
-                     fontFamily: "Poppins400",
-                  }}
-               >
-                  No obtuviste el código?
-               </Text>
-               <Link
-                  href={"/"}
-                  style={{
-                     color: Colors[colorScheme ?? "light"].textLink,
-                     fontSize: 12,
-                     marginLeft: 10,
-                     fontFamily: "Poppins400",
-                     textDecorationLine: "underline",
-                  }}
-               >
-                  <Text>Reenviar Código</Text>
-               </Link>
-            </View>
-            <ButtonCustom text="Activar Cuenta" onPress={funActivateAccount} />
+               <TitleIconCustom
+                  style={{ marginBottom: 20 }}
+                  iconName="mail"
+                  text="Código de validación de Correo"
+               />
+               <TextDescriptionCustom
+                  style={{ marginBottom: 20 }}
+                  align="justify"
+                  text="Hemos enviado un código de activación a tu correo electrónico, revisa tu bandeja de entrada o Correos no deseados"
+               />
 
-            <View
-               style={{
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  marginTop: 30,
-               }}
-            >
-               <Text
+               <InputCodeCustom
+                  style={{ marginBottom: 20 }}
+                  valueChange={setCode}
+               />
+               <View
                   style={{
-                     color: Colors[colorScheme ?? "light"].text,
-                     fontSize: 12,
-                     marginLeft: 10,
-                     fontFamily: "Poppins400",
+                     width: "100%",
+                     display: "flex",
+                     flexDirection: "row",
+                     justifyContent: "flex-end",
                   }}
                >
-                  Ya tienes una cuenta?
-               </Text>
-               <Link
-                  href={"/"}
+                  <Text
+                     style={{
+                        color: Colors[colorScheme ?? "light"].text,
+                        fontSize: 12,
+                        marginLeft: 10,
+                        fontFamily: "Poppins400",
+                     }}
+                  >
+                     No obtuviste el código?
+                  </Text>
+                  <Link
+                     href={"/"}
+                     style={{
+                        color: Colors[colorScheme ?? "light"].textLink,
+                        fontSize: 12,
+                        marginLeft: 10,
+                        fontFamily: "Poppins400",
+                        textDecorationLine: "underline",
+                     }}
+                  >
+                     <Text>Reenviar Código</Text>
+                  </Link>
+               </View>
+               <ButtonCustom
+                  text="Activar Cuenta"
+                  onPress={funActivateAccount}
+               />
+
+               <View
                   style={{
-                     color: Colors[colorScheme ?? "light"].textLink,
-                     fontSize: 12,
-                     marginLeft: 10,
-                     fontFamily: "Poppins400",
-                     textDecorationLine: "underline",
+                     width: "100%",
+                     display: "flex",
+                     flexDirection: "row",
+                     justifyContent: "center",
+                     marginTop: 30,
                   }}
                >
-                  <Text>Inicia Sesión</Text>
-               </Link>
+                  <Text
+                     style={{
+                        color: Colors[colorScheme ?? "light"].text,
+                        fontSize: 12,
+                        marginLeft: 10,
+                        fontFamily: "Poppins400",
+                     }}
+                  >
+                     Ya tienes una cuenta?
+                  </Text>
+                  <Link
+                     href={"/"}
+                     style={{
+                        color: Colors[colorScheme ?? "light"].textLink,
+                        fontSize: 12,
+                        marginLeft: 10,
+                        fontFamily: "Poppins400",
+                        textDecorationLine: "underline",
+                     }}
+                  >
+                     <Text>Inicia Sesión</Text>
+                  </Link>
+               </View>
             </View>
-         </View>
+         </ScrollView>
       </ContainerCustom>
    );
 };

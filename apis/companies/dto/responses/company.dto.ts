@@ -5,7 +5,7 @@ export class DtoCompanyRes {
    Description: string = "";
    Email: string = "";
    Page: string = "";
-   CreationDate: Date = new Date();
+   CreationDate: string = "";
    IsActive: boolean = false;
    FkUserId: string = "";
    DtoUser: DtoUserCompanyRes = new DtoUserCompanyRes();

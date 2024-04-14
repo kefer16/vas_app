@@ -10,14 +10,14 @@ export interface NotificacionProps {
 }
 export interface InsteneSesionContextProps {
    vasSesion: DtoLoginAccountRes;
-   companySesion: DtoCompanyRes;
+   companiesSesion: DtoCompanyRes[];
    privilegio: privilegio;
    obtenerSesion: () => void;
    guardarSesion: (sesion: DtoLoginAccountRes) => void;
    cerrarSesion: () => void;
    mostrarNotificacion: (prosp: NotificacionProps) => void;
    activarCarga: (estado: boolean) => void;
-   saveCompanySesion: (pCompany: DtoCompanyRes) => void;
+   saveCompaniesSesion: (pCompanies: DtoCompanyRes[]) => void;
 }
 
 export const VasSesionContext = createContext<InsteneSesionContextProps>(
@@ -32,12 +32,16 @@ export const SesionProvider = ({ children }: any) => {
    );
 
    const [carga, setCarga] = useState<boolean>(false);
-   const [companySesion, setCompanySesion] = useState<DtoCompanyRes>(
-      new DtoCompanyRes()
-   );
+   const [companiesSesion, setCompaniesSesion] = useState<DtoCompanyRes[]>([]);
 
-   const saveCompanySesion = async (pCompany: DtoCompanyRes) => {
-      setCompanySesion(pCompany);
+   const saveCompaniesSesion = async (pCompanies: DtoCompanyRes[]) => {
+      const array = pCompanies.sort((a, b) => {
+         return (
+            new Date(b.CreationDate).getTime() -
+            new Date(a.CreationDate).getTime()
+         );
+      });
+      setCompaniesSesion([...array]);
    };
 
    const activarCarga = (estado: boolean) => {
@@ -127,14 +131,14 @@ export const SesionProvider = ({ children }: any) => {
       <VasSesionContext.Provider
          value={{
             vasSesion,
-            companySesion,
+            companiesSesion,
             privilegio,
             obtenerSesion,
             guardarSesion,
             cerrarSesion,
             mostrarNotificacion,
             activarCarga,
-            saveCompanySesion,
+            saveCompaniesSesion,
          }}
       >
          {children}
