@@ -54,8 +54,13 @@ const index = () => {
             <WeekSectionComponent styleProps={{ paddingHorizontal: 10 }} />
             <SectionTitleComponent
                styleContainer={{ padding: 10 }}
-               title="Tus Empresas"
+               title="Tus Compañias"
                href="/(home)/inicio/company/"
+            />
+            <SectionTitleComponent
+               styleContainer={{ padding: 10 }}
+               title="Tus Módulos"
+               href="/(home)/inicio/module/"
             />
             <CompanySection
                arrayCompanies={arrayCompany}
