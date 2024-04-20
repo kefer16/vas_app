@@ -3,6 +3,7 @@ import React, {
    useCallback,
    useContext,
    useEffect,
+   useMemo,
    useRef,
    useState,
 } from "react";
@@ -21,8 +22,10 @@ import ViewHeader from "@/components/view/TitleItem";
 import { VasSesionContext } from "@/contexts/Sesion.context";
 import { CompanyService } from "@/apis/companies/company.service";
 import { DtoCompanyRes } from "@/apis/companies/dto/responses/company.dto";
-import BottomSheet, {
+import {
    BottomSheetBackdrop,
+   BottomSheetModal,
+   BottomSheetModalProvider,
    BottomSheetView,
 } from "@gorhom/bottom-sheet";
 import OptionBottomSheet from "@/components/OptionBottomSheet";
@@ -42,11 +45,9 @@ const index = () => {
    const [viewCardData, setViewCardData] = useState<ItfViewCardItem[]>([]);
 
    const getCompanyService = async () => {
-      console.log("view list", companiesSesion);
       const companyItem =
          companiesSesion.find((item) => item.CompanyId === id) ??
          new DtoCompanyRes();
-      console.log("view item", companyItem);
 
       setCompanyData(companyItem);
       asignViewCardSystem(companyItem);
@@ -77,7 +78,8 @@ const index = () => {
                (item) => item.CompanyId !== id
             );
             saveCompaniesSesion([...companies]);
-            router.navigate("/(home)/inicio/company/");
+            // router.navigate("/(home)/inicio/company/");
+            router.back();
          })
          .catch((error) => {
             mostrarNotificacion({ tipo: "error", detalle: error.message });
@@ -152,10 +154,10 @@ const index = () => {
       loadView();
    }, [companiesSesion]);
 
-   const sheetRef = useRef<BottomSheet>(null);
-   // const handleClosePress = () => sheetRef.current?.close();
-   const handleOpenPress = () => sheetRef.current?.expand();
-   // callbacks
+   // const sheetRef = useRef<BottomSheet>(null);
+   // // const handleClosePress = () => sheetRef.current?.close();
+   // const handleOpenPress = () => sheetRef.current?.expand();
+   // // callbacks
 
    const renderBackground = useCallback(
       (props: any) => (
@@ -168,59 +170,74 @@ const index = () => {
       []
    );
 
+   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+   // variables
+   const snapPoints = useMemo(() => ["25%", "50%"], []);
+
+   // callbacks
+   const handlePresentModalPress = useCallback(() => {
+      bottomSheetModalRef.current?.present();
+   }, []);
+   const handleSheetChanges = useCallback((index: number) => {
+      console.log("handleSheetChanges", index);
+   }, []);
+
    return (
       <ContainerCustom>
-         <ViewHeader
-            styleContainer={{ paddingHorizontal: 10 }}
-            title="Visualizar Compañia"
-            hrefButtonEdit={`/(home)/inicio/company/edit/${id}`}
-         />
-         <Separator />
-         <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={{
-               flex: 1,
-            }}
-         >
-            <View
+         <BottomSheetModalProvider>
+            <ViewHeader
+               styleContainer={{ paddingHorizontal: 10 }}
+               title="Visualizar Compañia"
+               hrefButtonEdit={`/(home)/inicio/company/edit/${id}`}
+            />
+            <Separator />
+            <ScrollView
+               showsVerticalScrollIndicator={false}
                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  padding: 10,
-                  gap: 10,
+                  flex: 1,
                }}
             >
-               <ViewIconItem
-                  iconLucide={Building2}
-                  title={companyData.ShortName}
-               />
-               <ViewOptionsGroup functionMoreBtn={handleOpenPress} />
-               <ViewCardItem arrayView={viewCardSystem} />
-               <ViewCardItem arrayView={viewCardData} />
-            </View>
-         </ScrollView>
-         <BottomSheet
-            index={-1}
-            ref={sheetRef}
-            // onChange={handleSheetChange}
-            snapPoints={["20%"]}
-            enablePanDownToClose
-            backdropComponent={renderBackground}
-         >
-            <BottomSheetView style={{ flex: 1, flexDirection: "column" }}>
-               <Text
+               <View
                   style={{
-                     fontSize: 20,
-                     fontFamily: "Poppins600",
-                     paddingHorizontal: 10,
+                     display: "flex",
+                     flexDirection: "column",
+                     padding: 10,
+                     gap: 10,
                   }}
                >
-                  Opciones
-               </Text>
-               <Separator />
-               <OptionBottomSheet onPress={deleteCompanyService} />
-            </BottomSheetView>
-         </BottomSheet>
+                  <ViewIconItem
+                     iconLucide={Building2}
+                     title={companyData.ShortName}
+                  />
+                  <ViewOptionsGroup functionMoreBtn={handlePresentModalPress} />
+                  <ViewCardItem arrayView={viewCardSystem} />
+                  <ViewCardItem arrayView={viewCardData} />
+               </View>
+            </ScrollView>
+            <BottomSheetModal
+               ref={bottomSheetModalRef}
+               index={1}
+               snapPoints={snapPoints}
+               onChange={handleSheetChanges}
+               backdropComponent={renderBackground}
+               // style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+            >
+               <BottomSheetView style={{ flex: 1, flexDirection: "column" }}>
+                  <Text
+                     style={{
+                        fontSize: 20,
+                        fontFamily: "Poppins600",
+                        paddingHorizontal: 10,
+                     }}
+                  >
+                     Opciones
+                  </Text>
+                  <Separator />
+                  <OptionBottomSheet onPress={deleteCompanyService} />
+               </BottomSheetView>
+            </BottomSheetModal>
+         </BottomSheetModalProvider>
       </ContainerCustom>
    );
 };

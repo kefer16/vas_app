@@ -54,7 +54,7 @@ const edit = () => {
             const companies = companiesSesion;
             companies.push(resp);
             saveCompaniesSesion([...companies]);
-            router.navigate(`/(home)/inicio/company/view/${resp.CompanyId}`);
+            router.back();
          })
          .catch((error) => {
             mostrarNotificacion({ tipo: "error", detalle: error.message });
@@ -81,7 +81,7 @@ const edit = () => {
             );
             companies.push(resp);
             saveCompaniesSesion([...companies]);
-            router.navigate(`/(home)/inicio/company/view/${id}`);
+            router.back();
          })
          .catch((error) => {
             mostrarNotificacion({ tipo: "error", detalle: error.message });
@@ -116,7 +116,6 @@ const edit = () => {
    };
 
    useEffect(() => {
-      console.log("load", vasSesion);
       loadView(vasSesion);
    }, []);
 
