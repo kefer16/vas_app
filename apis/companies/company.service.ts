@@ -1,3 +1,4 @@
+import { OptionSelect } from "@/entities/ButtonSelect";
 import { CompanyApi } from "./company.api";
 import { DtoCreateCompany } from "./dto/requests/create-company.dto";
 import { DtoUpdateCompany } from "./dto/requests/update-company.dto";
@@ -8,6 +9,7 @@ export class CompanyService {
 
    private resGetCompany: DtoCompanyRes = new DtoCompanyRes();
    private resGetAllCompany: DtoCompanyRes[] = [];
+   private resGetAllCompanyOptions: OptionSelect[] = [];
    private resCreateCompany: DtoCompanyRes = new DtoCompanyRes();
    private resUpdateCompany: DtoCompanyRes = new DtoCompanyRes();
    private resDeleteCompany: boolean = false;
@@ -24,6 +26,17 @@ export class CompanyService {
          this.resGetAllCompany = resp.data.Data;
       });
       return this.resGetAllCompany;
+   }
+
+   async getAllOptions(): Promise<OptionSelect[]> {
+      await this.apiCompany.getAll().then((resp) => {
+         const data: OptionSelect[] = [];
+         resp.data.Data.forEach((item: DtoCompanyRes) => {
+            data.push({ value: item.CompanyId, text: item.ShortName });
+         });
+         this.resGetAllCompanyOptions = data;
+      });
+      return this.resGetAllCompanyOptions;
    }
 
    async create(pBody: DtoCreateCompany): Promise<DtoCompanyRes> {

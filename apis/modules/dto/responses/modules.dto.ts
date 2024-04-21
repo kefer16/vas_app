@@ -1,3 +1,4 @@
+import { DtoFkCompanyRes } from "@/apis/companies/dto/responses/fk-company.dto";
 import { DtoFkUserRes } from "@/apis/users/dto/responses/fk-user.dto";
 
 export class DtoModulesRes {
@@ -5,7 +6,6 @@ export class DtoModulesRes {
    Name: string = "";
    CreationDate: string = "";
    IsActive: string = "";
-   FkCompanyId: string = "";
-   FkUserId = "";
+   DtoCompany: DtoFkCompanyRes = new DtoFkCompanyRes();
    DtoUser: DtoFkUserRes = new DtoFkUserRes();
 }

@@ -10,8 +10,6 @@ interface Props {
 }
 const ModuleSection = ({ styleContainer, array }: Props) => {
    const onPress = (pId: string) => {
-      console.log("id:", pId);
-
       router.push(`/(home)/inicio/module/view/?id=${pId}`);
    };
    return (
@@ -21,7 +19,7 @@ const ModuleSection = ({ styleContainer, array }: Props) => {
                <ModuleOption
                   key={item.ModuleId}
                   textTitle={item.Name}
-                  textDescription={item.Name}
+                  textDescription={item.DtoCompany.ShortName}
                   onPress={() => onPress(item.ModuleId)}
                />
             );

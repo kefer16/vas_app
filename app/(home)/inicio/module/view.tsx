@@ -114,7 +114,7 @@ const view = () => {
             key: "5",
             type: EnuViewCardItem.STRING,
             title: "Descripcion",
-            value: pDtoItem.FkCompanyId,
+            value: pDtoItem.DtoCompany.ShortName,
          },
       ];
 
@@ -145,9 +145,7 @@ const view = () => {
    const handlePresentModalPress = useCallback(() => {
       bottomSheetModalRef.current?.present();
    }, []);
-   const handleSheetChanges = useCallback((index: number) => {
-      console.log("handleSheetChanges", index);
-   }, []);
+   const handleSheetChanges = useCallback((index: number) => {}, []);
 
    return (
       <ContainerCustom>

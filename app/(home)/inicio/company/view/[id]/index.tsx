@@ -179,9 +179,7 @@ const index = () => {
    const handlePresentModalPress = useCallback(() => {
       bottomSheetModalRef.current?.present();
    }, []);
-   const handleSheetChanges = useCallback((index: number) => {
-      console.log("handleSheetChanges", index);
-   }, []);
+   const handleSheetChanges = useCallback((index: number) => {}, []);
 
    return (
       <ContainerCustom>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Stack } from "expo-router";
 import { ModuleProvider } from "@/contexts/Module.context";
-
 const _layout = () => {
    return (
       <ModuleProvider>

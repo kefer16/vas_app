@@ -33,7 +33,6 @@ const index = () => {
       await srvModule
          .getAll()
          .then((resp) => {
-            // setArrayCompany(resp);
             saveSesionModules(resp);
             setArrayFilterModule(resp);
          })
