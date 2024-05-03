@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { SesionProvider } from "@/contexts/Sesion.context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { ModuleProvider } from "@/contexts/Module.context";
 
 export {
    // Catch any errors thrown by the Layout component.
@@ -60,27 +61,32 @@ function RootLayoutNav() {
 
    return (
       <SesionProvider>
-         <GestureHandlerRootView style={{ flex: 1 }}>
-            <ThemeProvider
-               value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-            >
-               <Stack>
-                  <Stack.Screen name="index" options={{ headerShown: false }} />
-                  <Stack.Screen
-                     name="create"
-                     options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                     name="activate"
-                     options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                     name="(home)"
-                     options={{ headerShown: false }}
-                  />
-               </Stack>
-            </ThemeProvider>
-         </GestureHandlerRootView>
+         <ModuleProvider>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+               <ThemeProvider
+                  value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+               >
+                  <Stack>
+                     <Stack.Screen
+                        name="index"
+                        options={{ headerShown: false }}
+                     />
+                     <Stack.Screen
+                        name="create"
+                        options={{ headerShown: false }}
+                     />
+                     <Stack.Screen
+                        name="activate"
+                        options={{ headerShown: false }}
+                     />
+                     <Stack.Screen
+                        name="(home)"
+                        options={{ headerShown: false }}
+                     />
+                  </Stack>
+               </ThemeProvider>
+            </GestureHandlerRootView>
+         </ModuleProvider>
       </SesionProvider>
    );
 }

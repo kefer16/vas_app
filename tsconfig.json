@@ -1,6 +1,7 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
+    "target": "ES2016",
     "strict": true,
     "noUnusedLocals": true,
     "noImplicitAny": true,
@@ -12,6 +13,7 @@
   },
   "include": [
     "**/*.ts",
+    "**/*.jsx",
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",

@@ -1,7 +1,7 @@
 export default {
    light: {
       svgContainer: "#F6F6F6",
-      container: "#rgba(255,255,255,0.3)",
+      container: "#F6F6F6",
       iconPrimary: "#BFA3F9",
       iconSecondary: "#6f6f6f",
       containerHeader: "#8673FF",

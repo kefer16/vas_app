@@ -30,7 +30,7 @@ import {
 } from "@gorhom/bottom-sheet";
 import OptionBottomSheet from "@/components/OptionBottomSheet";
 
-const index = () => {
+const view = () => {
    const {
       mostrarNotificacion,
       activarCarga,
@@ -181,13 +181,19 @@ const index = () => {
    }, []);
    const handleSheetChanges = useCallback((index: number) => {}, []);
 
+   const onPressEdit = () => {
+      router.push({
+         pathname: "/(home)/inicio/company/[id]/edit",
+         params: { id: id },
+      });
+   };
    return (
       <ContainerCustom>
          <BottomSheetModalProvider>
             <ViewHeader
                styleContainer={{ paddingHorizontal: 10 }}
                title="Visualizar Compañia"
-               hrefButtonEdit={`/(home)/inicio/company/edit/${id}`}
+               onPressEdit={onPressEdit}
             />
             <Separator />
             <ScrollView
@@ -240,4 +246,4 @@ const index = () => {
    );
 };
 
-export default index;
+export default view;

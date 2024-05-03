@@ -18,9 +18,6 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 interface Props {
    bottomSheetModalRef: RefObject<BottomSheetModalMethods>;
    options: OptionSelect[];
-   // funOptions: Dispatch<SetStateAction<OptionSelect[]>>;
-   // initialValue: string;
-   // funOptionSelect: Dispatch<SetStateAction<OptionSelect>>;
    funOptionSelected: (pArray: OptionSelect[], pId: string) => void;
 }
 

@@ -1,23 +1,21 @@
 import { View, Text, useColorScheme, StyleProp, ViewStyle } from "react-native";
 import React from "react";
 import ButtonIcon from "../ButtonRoundedIcon";
-import { Href, router } from "expo-router";
+import { router } from "expo-router";
 import { Edit2, Undo2 } from "lucide-react-native";
 import Colors from "@/constants/Colors";
 
 interface Props {
    styleContainer?: StyleProp<ViewStyle>;
    title: string;
-   hrefButtonEdit: Href<string>;
+   onPressEdit: () => void;
 }
-const ViewHeader = ({ styleContainer, title, hrefButtonEdit }: Props) => {
+const ViewHeader = ({ styleContainer, title, onPressEdit }: Props) => {
    const colorScheme = useColorScheme();
    const btnReturn = () => {
       router.back();
    };
-   const btnEdit = () => {
-      router.push(hrefButtonEdit);
-   };
+
    return (
       <View
          style={[
@@ -45,7 +43,7 @@ const ViewHeader = ({ styleContainer, title, hrefButtonEdit }: Props) => {
             {title}
          </Text>
 
-         <ButtonIcon onPress={btnEdit} iconLucide={Edit2} />
+         <ButtonIcon onPress={onPressEdit} iconLucide={Edit2} />
       </View>
    );
 };

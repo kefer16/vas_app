@@ -10,7 +10,12 @@ interface Props {
 }
 const ModuleSection = ({ styleContainer, array }: Props) => {
    const onPress = (pId: string) => {
-      router.push(`/(home)/inicio/module/view/?id=${pId}`);
+      console.log(pId);
+
+      router.push({
+         pathname: "/(home)/inicio/module/[id]/view",
+         params: { id: pId },
+      });
    };
    return (
       <View style={styleContainer}>

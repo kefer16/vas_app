@@ -5,13 +5,7 @@ import {
    ScrollView,
    Dimensions,
 } from "react-native";
-import React, {
-   useCallback,
-   useContext,
-   useEffect,
-   useRef,
-   useState,
-} from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { router, useLocalSearchParams } from "expo-router";
 import { VasSesionContext } from "@/contexts/Sesion.context";
 import ContainerCustom from "@/components/ContainerCustom";
@@ -79,7 +73,7 @@ const edit = () => {
       activarCarga(false);
    };
 
-   const updateModuleService = async () => {
+   const updateModuleService = async (pId: string) => {
       const srvModule = new ModuleService();
       const data: UpdateModuleReq = {
          Name: name,
@@ -88,9 +82,9 @@ const edit = () => {
       };
       activarCarga(true);
       await srvModule
-         .update(id, data)
+         .update(pId, data)
          .then((resp) => {
-            const array = sesionModules.filter((item) => item.ModuleId !== id);
+            const array = sesionModules.filter((item) => item.ModuleId !== pId);
             array.push(resp);
             saveSesionModules([...array]);
             router.back();
@@ -101,17 +95,11 @@ const edit = () => {
       activarCarga(false);
    };
 
-   const getModuleService = () => {
+   const getModuleService = (pId: string): DtoModulesRes => {
       const data =
-         sesionModules.find((item) => item.ModuleId === id) ??
+         sesionModules.find((item) => item.ModuleId === pId) ??
          new DtoModulesRes();
-      if (data.ModuleId === id) {
-         setDate(data.CreationDate);
-         setUserName(data.DtoUser.UserName);
-         setActive(data.IsActive ? "Active" : "Inactivo");
-         setName(data.Name);
-         setFkCompany(data.DtoCompany.CompanyId);
-      }
+      return data;
    };
 
    const optionSelected = (pArray: OptionSelect[], pId: string) => {
@@ -127,67 +115,69 @@ const edit = () => {
          }
          const indexArray = pArray.findIndex((item) => item.value === pId);
          pArray[indexArray].selected = !pArray[indexArray].selected;
+         console.log("asigna array", pArray);
          setOptionFkCompany(pArray[indexArray]);
          setArrayOptions([...pArray]);
       }
    };
-   const getCompanyService = async () => {
+
+   const getCompanyService = async (): Promise<OptionSelect[]> => {
       const srvCompany = new CompanyService();
+      let array: OptionSelect[] = [];
       activarCarga(true);
       await srvCompany
          .getAllOptions()
          .then((resp) => {
-            setArrayOptions(resp);
-            console.log("fkcompany", fkCompany, name);
+            array = [...resp];
          })
          .catch((error) => {
             mostrarNotificacion({ tipo: "error", detalle: error.message });
          });
       activarCarga(false);
+      return array;
    };
 
-   const loadView = async (pSesion: DtoLoginAccountRes) => {
-      if (id === "-") {
+   const loadView = async (pId: string, pSesion: DtoLoginAccountRes) => {
+      if (pId === "-") {
          setDate(currentDateISO());
          setUserName(pSesion.UserName);
          setActive("Activo");
-      } else {
-         getModuleService();
       }
-      await getCompanyService();
+      const data = getModuleService(pId);
+      if (data.ModuleId === pId) {
+         setDate(data.CreationDate);
+         setUserName(data.DtoUser.UserName);
+         setActive(data.IsActive ? "Active" : "Inactivo");
+         setName(data.Name);
+         setFkCompany(data.DtoCompany.CompanyId);
+      }
+      const array = await getCompanyService();
+      optionSelected(array, data.DtoCompany.CompanyId);
    };
 
    useEffect(() => {
-      const data = async () => {
-         await loadView(vasSesion);
-      };
-      data();
+      loadView(id, vasSesion);
    }, []);
 
-   const btnCheck = () => {
-      if (id === "-") {
+   const btnCheck = (pId: string) => {
+      if (pId === "-") {
          createModuleService();
       } else {
-         updateModuleService();
+         updateModuleService(pId);
       }
    };
 
    const bottomSheetModalRef = useRef<BottomSheetModal>(null);
 
-   const handlePresentModalPress = useCallback(
-      (pArray: OptionSelect[], pId: string) => {
-         bottomSheetModalRef.current?.present();
-         optionSelected(pArray, pId);
-      },
-      []
-   );
-
+   const handlePresentModalPress = () => {
+      bottomSheetModalRef.current?.present();
+   };
    return (
       <ContainerCustom>
          <EditHeader
             styeContainer={{ paddingHorizontal: 10 }}
             title={id === "-" ? "Crear Modelo" : "Actualizar Modelo"}
-            functionBtnCheck={btnCheck}
+            functionBtnCheck={() => btnCheck(id)}
          />
          <Separator />
          <ScrollView
@@ -242,16 +232,13 @@ const edit = () => {
                >
                   Datos Principales
                </Text>
-               {arrayOptions.length > 0 && (
-                  <ButtonIconInput
-                     onPress={() =>
-                        handlePresentModalPress(arrayOptions, fkCompany)
-                     }
-                     title="Fk Company"
-                     inputIsRequired
-                     value={optionFkCompany.text}
-                  />
-               )}
+
+               <ButtonIconInput
+                  onPress={handlePresentModalPress}
+                  title="Fk Company"
+                  inputIsRequired
+                  value={optionFkCompany.text}
+               />
 
                <InputText
                   title="Nombre Corto"
@@ -264,7 +251,7 @@ const edit = () => {
          <ButtonSelectCompany
             bottomSheetModalRef={bottomSheetModalRef}
             options={arrayOptions}
-            funOptionSelected={optionSelected}
+            funOptionSelected={() => optionSelected(arrayOptions, fkCompany)}
          />
       </ContainerCustom>
    );

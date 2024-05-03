@@ -42,9 +42,9 @@ const view = () => {
    const [viewCardSystem, setViewCardSystem] = useState<ItfViewCardItem[]>([]);
    const [viewCardData, setViewCardData] = useState<ItfViewCardItem[]>([]);
 
-   const getModuleService = async () => {
+   const getModuleService = async (pId: string) => {
       const item =
-         sesionModules.find((item) => item.ModuleId === id) ??
+         sesionModules.find((item) => item.ModuleId === pId) ??
          new DtoModulesRes();
 
       setModuleData(item);
@@ -52,17 +52,16 @@ const view = () => {
       asignViewCardData(item);
    };
 
-   const deleteModuleService = async () => {
+   const deleteModuleService = async (pIid: string) => {
       const srvModule = new ModuleService();
       activarCarga(true);
       await srvModule
-         .delete(id)
+         .delete(pIid)
          .then((resp) => {
             const companies = sesionModules.filter(
-               (item) => item.ModuleId !== id
+               (item) => item.ModuleId !== pIid
             );
             saveSesionModules([...companies]);
-
             router.back();
          })
          .catch((error) => {
@@ -71,8 +70,8 @@ const view = () => {
       activarCarga(false);
    };
 
-   const loadView = () => {
-      getModuleService();
+   const loadView = (id: string) => {
+      getModuleService(id);
    };
 
    const asignViewCardSystem = (pDtoItem: DtoModulesRes) => {
@@ -122,8 +121,8 @@ const view = () => {
    };
 
    useEffect(() => {
-      loadView();
-   }, [sesionModules]);
+      loadView(id);
+   }, []);
 
    const renderBackground = useCallback(
       (props: any) => (
@@ -147,13 +146,19 @@ const view = () => {
    }, []);
    const handleSheetChanges = useCallback((index: number) => {}, []);
 
+   const onPressEdit = () => {
+      router.push({
+         pathname: "/(home)/inicio/module/[id]/edit",
+         params: { id: id },
+      });
+   };
    return (
       <ContainerCustom>
          <BottomSheetModalProvider>
             <ViewHeader
                styleContainer={{ paddingHorizontal: 10 }}
                title="Visualizar Módulo"
-               hrefButtonEdit={`/(home)/inicio/module/edit/?id=${id}`}
+               onPressEdit={onPressEdit}
             />
             <Separator />
             <ScrollView
@@ -198,7 +203,7 @@ const view = () => {
                      Opciones
                   </Text>
                   <Separator />
-                  <OptionBottomSheet onPress={deleteModuleService} />
+                  <OptionBottomSheet onPress={() => deleteModuleService(id)} />
                </BottomSheetView>
             </BottomSheetModal>
          </BottomSheetModalProvider>

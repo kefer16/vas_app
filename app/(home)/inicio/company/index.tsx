@@ -66,7 +66,10 @@ const index = () => {
    }, [companiesSesion]);
 
    const goAddCompany = () => {
-      router.push("/(home)/inicio/company/edit/-");
+      router.push({
+         pathname: "/(home)/inicio/company/[id]/edit",
+         params: { id: "-" },
+      });
    };
    return (
       <ContainerCustom>

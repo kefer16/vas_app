@@ -9,8 +9,11 @@ interface Props {
    arrayCompanies: DtoCompanyRes[];
 }
 const CompanySection = ({ styleContainer, arrayCompanies }: Props) => {
-   const onPress = (pid: string) => {
-      router.push(`/(home)/inicio/company/view/${pid}`);
+   const onPress = (pId: string) => {
+      router.push({
+         pathname: "/(home)/inicio/company/[id]/view",
+         params: { id: pId },
+      });
    };
    return (
       <View style={styleContainer}>

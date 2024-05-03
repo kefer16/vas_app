@@ -85,7 +85,7 @@ export default function LoginScreen() {
                      width: "100%",
                      height: 300,
                   }}
-                  blurRadius={4}
+                  blurRadius={1}
                   source={require("../public/images/gestion.jpg")}
                />
 

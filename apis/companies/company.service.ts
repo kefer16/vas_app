@@ -32,7 +32,11 @@ export class CompanyService {
       await this.apiCompany.getAll().then((resp) => {
          const data: OptionSelect[] = [];
          resp.data.Data.forEach((item: DtoCompanyRes) => {
-            data.push({ value: item.CompanyId, text: item.ShortName });
+            data.push({
+               value: item.CompanyId,
+               text: item.ShortName,
+               selected: false,
+            });
          });
          this.resGetAllCompanyOptions = data;
       });
