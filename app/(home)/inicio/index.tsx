@@ -3,7 +3,7 @@ import TitleCustom from "../../../components/TitleCustom";
 import CardCustom from "../../../components/CardCustom";
 import ContainerCustom from "@/components/ContainerCustom";
 import HeaderSearchComponent from "@/components/HeaderSearch.component";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import SectionTitleComponent from "@/components/SectionTitle.component";
 import Colors from "@/constants/Colors";
 import StatusHomeComponent from "@/components/StatusHome.component";
@@ -11,33 +11,40 @@ import WeekSectionComponent from "@/components/WeekSection.component";
 import CompanySection from "@/components/CompanySection";
 import { DtoCompanyRes } from "@/apis/companies/dto/responses/company.dto";
 import { ScrollView } from "react-native-gesture-handler";
+import Welcome from "@/components/Welcome";
+import { VasSesionContext } from "@/contexts/Sesion.context";
 
 const index = () => {
+   const { vasSesion } = useContext(VasSesionContext);
    const colorScheme = useColorScheme();
    const [inputHeader, setInputHeader] = useState<string>("");
    const [arrayCompany, setArrayCompany] = useState<DtoCompanyRes[]>([]);
 
    return (
       <ContainerCustom>
+         <Welcome
+            styleContainer={{ padding: 10 }}
+            userName={vasSesion.UserName}
+         />
          {/* <BarHeightCustom /> */}
          <Text
             style={{
                color: Colors[colorScheme ?? "light"].text,
                textAlign: "center",
                fontFamily: "Poppins800",
-               marginTop: 10,
+               marginBottom: 10,
                fontSize: 20,
             }}
          >
             Compañia 01
          </Text>
-         <HeaderSearchComponent
+         {/* <HeaderSearchComponent
             styleContainer={{ width: "100%", padding: 10 }}
             value={inputHeader}
             functionChangeText={setInputHeader}
             funButtonSearch={() => {}}
             placeholder="Ingrese el valor a buscar"
-         />
+         /> */}
          <ScrollView
             showsVerticalScrollIndicator={false}
             style={{
@@ -47,7 +54,7 @@ const index = () => {
             <StatusHomeComponent styleProps={{ paddingHorizontal: 10 }} />
             <SectionTitleComponent
                styleContainer={{ padding: 10 }}
-               title="Marzo 2024"
+               title="Mayo 2024"
                href="/inicio/company/"
             />
 
