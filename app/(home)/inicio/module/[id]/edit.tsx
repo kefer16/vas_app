@@ -104,19 +104,15 @@ const edit = () => {
 
    const optionSelected = (pArray: OptionSelect[], pId: string) => {
       if (pId !== "") {
-         const optionsSelected = pArray.filter(
-            (item) => item.selected === true
-         );
-         if (
-            optionsSelected.length > 0 &&
-            optionsSelected.find((item) => item.value !== pId)
-         ) {
-            return;
-         }
-         const indexArray = pArray.findIndex((item) => item.value === pId);
-         pArray[indexArray].selected = !pArray[indexArray].selected;
-         console.log("asigna array", pArray);
-         setOptionFkCompany(pArray[indexArray]);
+         pArray = pArray.map((item) => ({
+            ...item,
+            selected: item.value === pId,
+         }));
+         const optionSelected =
+            pArray.find((item) => item.selected) ?? new OptionSelect();
+         setOptionFkCompany(optionSelected);
+         setArrayOptions([...pArray]);
+      } else {
          setArrayOptions([...pArray]);
       }
    };
@@ -251,7 +247,7 @@ const edit = () => {
          <ButtonSelectCompany
             bottomSheetModalRef={bottomSheetModalRef}
             options={arrayOptions}
-            funOptionSelected={() => optionSelected(arrayOptions, fkCompany)}
+            funOptionSelected={optionSelected}
          />
       </ContainerCustom>
    );

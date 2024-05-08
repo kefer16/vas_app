@@ -1,5 +1,11 @@
 import { View, Text, useColorScheme } from "react-native";
-import React, { RefObject, useCallback, useMemo, useState } from "react";
+import React, {
+   RefObject,
+   useCallback,
+   useEffect,
+   useMemo,
+   useState,
+} from "react";
 import { OptionSelect } from "@/entities/ButtonSelect";
 import {
    BottomSheetBackdrop,
@@ -28,7 +34,7 @@ const ButtonSelectCompany = ({
 }: Props) => {
    const colorScheme = useColorScheme();
    const [search, setSearch] = useState<string>("");
-   const [filterSearch, setFilterSearch] = useState<OptionSelect[]>(options);
+   const [filterSearch, setFilterSearch] = useState<OptionSelect[]>([]);
 
    const searchFilter = (pSearch: string) => {
       setFilterSearch(
@@ -60,6 +66,9 @@ const ButtonSelectCompany = ({
 
    const handleSheetChanges = useCallback((index: number) => {}, []);
 
+   useEffect(() => {
+      setFilterSearch(options);
+   }, [options]);
    return (
       <BottomSheetModalProvider>
          <BottomSheetModal
@@ -123,6 +132,7 @@ const ButtonSelectCompany = ({
                                  // paddingHorizontal: 10,
                                  gap: 10,
                               }}
+                              key={item.value}
                            >
                               <View
                                  style={{
@@ -148,7 +158,6 @@ const ButtonSelectCompany = ({
                                        color: Colors[colorScheme ?? "light"]
                                           .text,
                                     }}
-                                    key={item.value}
                                  >
                                     {item.text}
                                  </Text>

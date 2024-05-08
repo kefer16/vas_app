@@ -122,23 +122,83 @@ export interface WeekDaysProps {
    name: string;
 }
 
+// export function getDaysWeek(): WeekDaysProps[] {
+//    const daysWeek: WeekDaysProps[] = [];
+//    const nameDays: string[] = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+//    const fechaActual: Date = new Date();
+//    const diaSemanaActual: number = fechaActual.getDay(); // 0 para Domingo, 1 para Lunes, ..., 6 para Sábado
+//    const diferenciaDias: number =
+//       diaSemanaActual === 0 ? 6 : diaSemanaActual - 1; // Calcular la diferencia de días para llegar al lunes
+//    const milisegundosPorDia: number = 24 * 60 * 60 * 1000; // 1 día en milisegundos
+//    const milisegundosHastaLunes: number = diferenciaDias * milisegundosPorDia; // Milisegundos hasta llegar a lunes
+//    const fechaLunes: Date = new Date(
+//       fechaActual.getTime() - milisegundosHastaLunes
+//    ); // Restar la diferencia para obtener el lunes
+
+//    for (let i = 0; i < 7; i++) {
+//       daysWeek.push({ number: fechaLunes.getDate(), name: nameDays[i] });
+//       fechaLunes.setDate(fechaLunes.getDate() + 1); // Sumar un día
+//    }
+
+//    return daysWeek;
+// }
+
 export function getDaysWeek(): WeekDaysProps[] {
    const daysWeek: WeekDaysProps[] = [];
-   const nameDays: string[] = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
-   const fechaActual: Date = new Date();
-   const diaSemanaActual: number = fechaActual.getDay(); // 0 para Domingo, 1 para Lunes, ..., 6 para Sábado
-   const diferenciaDias: number =
-      diaSemanaActual === 0 ? 6 : diaSemanaActual - 1; // Calcular la diferencia de días para llegar al lunes
+   const nameDays: string[] = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+   const currentDate: Date = new Date(
+      new Date().setHours(new Date().getHours() - 5)
+   );
+   const diferenciaDias: number = 3;
    const milisegundosPorDia: number = 24 * 60 * 60 * 1000; // 1 día en milisegundos
    const milisegundosHastaLunes: number = diferenciaDias * milisegundosPorDia; // Milisegundos hasta llegar a lunes
-   const fechaLunes: Date = new Date(
-      fechaActual.getTime() - milisegundosHastaLunes
+   const date3daysBefore: Date = new Date(
+      currentDate.getTime() - milisegundosHastaLunes
    ); // Restar la diferencia para obtener el lunes
 
    for (let i = 0; i < 7; i++) {
-      daysWeek.push({ number: fechaLunes.getDate(), name: nameDays[i] });
-      fechaLunes.setDate(fechaLunes.getDate() + 1); // Sumar un día
+      daysWeek.push({
+         number: date3daysBefore.getDate(),
+         name: nameDays[date3daysBefore.getDay()],
+      });
+      date3daysBefore.setDate(date3daysBefore.getDate() + 1); // Sumar un día
    }
 
    return daysWeek;
+}
+
+export function getDay(): number {
+   const currentDate: Date = new Date(
+      new Date().setHours(new Date().getHours() - 5)
+   );
+   return currentDate.getDate();
+}
+
+export function getMonth(): string {
+   const months = [
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre",
+   ];
+   const currentDate: Date = new Date(
+      new Date().setHours(new Date().getHours() - 5)
+   );
+   const monthNumber = currentDate.getMonth();
+   return months[monthNumber];
+}
+
+export function getYear(): number {
+   const currentDate: Date = new Date(
+      new Date().setHours(new Date().getHours() - 5)
+   );
+   return currentDate.getFullYear();
 }

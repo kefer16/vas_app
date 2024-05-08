@@ -2,7 +2,6 @@ import { Text, View, useColorScheme } from "react-native";
 import TitleCustom from "../../../components/TitleCustom";
 import CardCustom from "../../../components/CardCustom";
 import ContainerCustom from "@/components/ContainerCustom";
-import HeaderSearchComponent from "@/components/HeaderSearch.component";
 import { useContext, useState } from "react";
 import SectionTitleComponent from "@/components/SectionTitle.component";
 import Colors from "@/constants/Colors";
@@ -13,11 +12,12 @@ import { DtoCompanyRes } from "@/apis/companies/dto/responses/company.dto";
 import { ScrollView } from "react-native-gesture-handler";
 import Welcome from "@/components/Welcome";
 import { VasSesionContext } from "@/contexts/Sesion.context";
+import { getDay, getMonth, getYear } from "@/utils/functions";
 
 const index = () => {
    const { vasSesion } = useContext(VasSesionContext);
    const colorScheme = useColorScheme();
-   const [inputHeader, setInputHeader] = useState<string>("");
+   // const [inputHeader, setInputHeader] = useState<string>("");
    const [arrayCompany, setArrayCompany] = useState<DtoCompanyRes[]>([]);
 
    return (
@@ -54,11 +54,14 @@ const index = () => {
             <StatusHomeComponent styleProps={{ paddingHorizontal: 10 }} />
             <SectionTitleComponent
                styleContainer={{ padding: 10 }}
-               title="Mayo 2024"
+               title={`${getMonth()} ${getYear()}`}
                href="/inicio/company/"
             />
 
-            <WeekSectionComponent styleProps={{ paddingHorizontal: 10 }} />
+            <WeekSectionComponent
+               styleProps={{ paddingHorizontal: 10 }}
+               currentDay={getDay()}
+            />
             <SectionTitleComponent
                styleContainer={{ padding: 10 }}
                title="Tus Compañias"

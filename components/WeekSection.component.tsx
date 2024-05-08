@@ -11,8 +11,9 @@ import Colors from "@/constants/Colors";
 import { WeekDaysProps, getDaysWeek } from "@/utils/functions";
 interface Props {
    styleProps?: StyleProp<ViewStyle>;
+   currentDay: number;
 }
-const WeekSectionComponent = ({ styleProps }: Props) => {
+const WeekSectionComponent = ({ styleProps, currentDay }: Props) => {
    const colorScheme = useColorScheme();
    const [daysWeek, setDaysWeek] = useState<WeekDaysProps[]>([]);
    useEffect(() => {
@@ -37,12 +38,20 @@ const WeekSectionComponent = ({ styleProps }: Props) => {
                return (
                   <View
                      key={String(item.number)}
-                     style={{
-                        width: 70,
-                        backgroundColor: Colors[colorScheme ?? "light"].card,
-                        borderRadius: 10,
-                        padding: 10,
-                     }}
+                     style={[
+                        {
+                           width: 70,
+
+                           borderRadius: 10,
+                           padding: 10,
+                        },
+                        item.number === currentDay
+                           ? { backgroundColor: "#fdd9d7" }
+                           : {
+                                backgroundColor:
+                                   Colors[colorScheme ?? "light"].card,
+                             },
+                     ]}
                   >
                      <Text
                         style={{
