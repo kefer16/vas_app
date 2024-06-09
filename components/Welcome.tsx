@@ -33,6 +33,7 @@ const Welcome = ({ styleContainer, userName }: Props) => {
             style={{
                fontFamily: "Poppins700",
                fontSize: 20,
+               color: Colors[colorScheme ?? "light"].text,
             }}
          >
             {`Hola, `}

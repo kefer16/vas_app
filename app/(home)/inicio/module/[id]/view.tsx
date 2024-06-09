@@ -122,7 +122,7 @@ const view = () => {
 
    useEffect(() => {
       loadView(id);
-   }, []);
+   }, [sesionModules]);
 
    const renderBackground = useCallback(
       (props: any) => (

@@ -46,7 +46,7 @@ const WeekSectionComponent = ({ styleProps, currentDay }: Props) => {
                            padding: 10,
                         },
                         item.number === currentDay
-                           ? { backgroundColor: "#fdd9d7" }
+                           ? { backgroundColor: "rgba(255,0,0,0.1)" }
                            : {
                                 backgroundColor:
                                    Colors[colorScheme ?? "light"].card,

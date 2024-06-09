@@ -202,3 +202,38 @@ export function getYear(): number {
    );
    return currentDate.getFullYear();
 }
+
+export function getDaysMonth(): WeekDaysProps[] {
+   const daysMonth: WeekDaysProps[] = [];
+   const nameDays: string[] = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+   const currentDate = new Date(new Date().setHours(new Date().getHours() - 5));
+   const currentMonth = currentDate.getMonth();
+   const currentYear = currentDate.getFullYear();
+   const oneDayMonth = new Date(currentYear, currentMonth, 1);
+   const daysQuantityMonth = new Date(currentYear, currentMonth, 0).getDate();
+
+   for (let i = 0; i < oneDayMonth.getDay(); i++) {
+      daysMonth.push({
+         number: 0,
+         name: nameDays[i],
+      });
+   }
+   for (let j = 0; j <= daysQuantityMonth; j++) {
+      daysMonth.push({
+         number: oneDayMonth.getDate(),
+         name: nameDays[oneDayMonth.getDay()],
+      });
+      oneDayMonth.setDate(oneDayMonth.getDate() + 1);
+   }
+
+   const daysDifferenceSunday = 6 - oneDayMonth.getDay();
+
+   for (let k = 0; k <= daysDifferenceSunday; k++) {
+      daysMonth.push({
+         number: 0,
+         name: nameDays[oneDayMonth.getDay() + k],
+      });
+   }
+
+   return daysMonth;
+}

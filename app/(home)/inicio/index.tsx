@@ -55,7 +55,7 @@ const index = () => {
             <SectionTitleComponent
                styleContainer={{ padding: 10 }}
                title={`${getMonth()} ${getYear()}`}
-               href="/inicio/company/"
+               href="/inicio/calendar/"
             />
 
             <WeekSectionComponent

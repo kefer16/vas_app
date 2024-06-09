@@ -1,4 +1,4 @@
-import { View, Text, useColorScheme } from "react-native";
+import { View, Text, useColorScheme, TouchableOpacity } from "react-native";
 import React, {
    RefObject,
    useCallback,
@@ -19,7 +19,6 @@ import { BottomSheetModalMethods } from "@gorhom/bottom-sheet/lib/typescript/typ
 import Colors from "@/constants/Colors";
 import InputTextSearchCustom from "@/components/InputTextSearchCustom";
 import Checkbox from "expo-checkbox";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 interface Props {
    bottomSheetModalRef: RefObject<BottomSheetModalMethods>;
@@ -157,6 +156,8 @@ const ButtonSelectCompany = ({
                                     style={{
                                        color: Colors[colorScheme ?? "light"]
                                           .text,
+                                       fontFamily: "Poppins400",
+                                       fontSize: 15,
                                     }}
                                  >
                                     {item.text}
